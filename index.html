@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAO BAM – Menu</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: #fff;
+  }
+
+  .container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  .intro {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 16px;
+    color: #ccc;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+  }
+
+  .buttons button {
+    flex: 1;
+    padding: 18px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #333;
+    color: #fff;
+  }
+
+  .buttons button.active {
+    background: #ff9800;
+    color: #000;
+  }
+
+  h2 {
+    margin-top: 30px;
+    border-bottom: 1px solid #444;
+    padding-bottom: 5px;
+  }
+
+  .item {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+  }
+
+  .price {
+    font-weight: bold;
+  }
+
+  .menu {
+    display: none;
+  }
+
+  footer {
+    text-align: center;
+    margin: 40px 0 10px;
+    font-size: 14px;
+    color: #aaa;
+  }
+</style>
+</head>
+
+<body>
+<div class="container">
+  <h1>BAO BAM</h1>
+  <p class="intro">Διάλεξε πώς θέλεις να παραγγείλεις</p>
+
+  <div class="buttons">
+    <button id="btnTake" onclick="showMenu('take')">🥡 Take Away / Κατάστημα</button>
+    <button id="btnDelivery" onclick="showMenu('delivery')">🛵 Delivery</button>
+  </div>
+
+  <!-- TAKE AWAY MENU -->
+  <div id="menuTake" class="menu">
+    <h2>Burgers</h2>
+    <div class="item">
+      <span>Classic Beef Burger</span>
+      <span class="price">7,50€</span>
+    </div>
+  </div>
+
+  <!-- DELIVERY MENU -->
+  <div id="menuDelivery" class="menu">
+    <h2>Burgers</h2>
+    <div class="item">
+      <span>Classic Beef Burger</span>
+      <span class="price">8,20€</span>
+    </div>
+  </div>
+
+  <footer>© BAO BAM</footer>
+</div>
+
+<script>
+  function showMenu(type) {
+    document.getElementById('menuTake').style.display = 'none';
+    document.getElementById('menuDelivery').style.display = 'none';
+
+    document.getElementById('btnTake').classList.remove('active');
+    document.getElementById('btnDelivery').classList.remove('active');
+
+    if (type === 'take') {
+      document.getElementById('menuTake').style.display = 'block';
+      document.getElementById('btnTake').classList.add('active');
+    }
+
+    if (type === 'delivery') {
+      document.getElementById('menuDelivery').style.display = 'block';
+      document.getElementById('btnDelivery').classList.add('active');
+    }
+  }
+</script>
+</body>
+</html>
