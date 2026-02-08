@@ -3,75 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BAO BAM – Menu</title>
-
+<title>BAO BAM Menu</title>
 <style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #111;
-    color: #fff;
-  }
+body {
+  background: #111;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+}
 
-  .container {
-    max-width: 600px;
-    margin: auto;
-    padding: 20px;
-  }
+h1, h2 {
+  color: #ff9800;
+  text-align: center;
+}
 
-  h1 {
-    text-align: center;
-    margin-bottom: 5px;
-  }
+.menu-switch {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 25px;
+}
 
-  .intro {
-    text-align: center;
-    margin: 20px 0;
-    font-size: 16px;
-    color: #ccc;
-  }
+.switch-btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: 1px solid #ff9800;
+  background: #222;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+}
 
-  .buttons {
-    display: flex;
-    gap: 10px;
-    margin: 20px 0;
-  }
+.switch-btn.active {
+  background: #ff9800;
+  color: #000;
+}
 
-  .buttons button {
-    flex: 1;
-    padding: 18px;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    background: #333;
-    color: #fff;
-  }
-
-  .buttons button.active {
-    background: #ff1c1c;
-    color: #000;
-  }
-
-  h2 {
-    margin-top: 30px;
-    border-bottom: 1px solid #444;
-    padding-bottom: 5px;
-  }
-
-  .item {
-    display: flex;
-    justify-content: space-between;
-    margin: 10px 0;
-  }
-
-  .price {
-    font-weight: bold;
-  }
 .product {
   margin: 25px 0;
-  padding-bottom: 15px;
+  padding-bottom: 20px;
   border-bottom: 1px solid #333;
 }
 
@@ -86,125 +57,129 @@
   margin: 6px 0 12px;
 }
 
-.prices {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+.sizes {
+  display: flex;
+  flex-wrap: wrap;
   gap: 8px;
+  margin-bottom: 10px;
 }
 
-.price-box {
-  background: #1f1f1f;
-  padding: 10px;
+.size-btn {
+  padding: 8px 12px;
   border-radius: 6px;
-  text-align: center;
-  font-size: 15px;
+  border: 1px solid #444;
+  background: #222;
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.size-btn.active {
+  background: #ff9800;
+  color: #000;
+  border-color: #ff9800;
+}
+
+.price {
+  font-size: 18px;
   font-weight: bold;
 }
 
-.price-box span {
-  display: block;
-  font-size: 12px;
-  font-weight: normal;
-  color: #aaa;
+.hidden {
+  display: none;
 }
-
-  .menu {
-    display: none;
-  }
-
-  footer {
-    text-align: center;
-    margin: 40px 0 10px;
-    font-size: 14px;
-    color: #aaa;
-  }
 </style>
 </head>
-
 <body>
-<div class="container">
-  <h1>BAO BAM</h1>
-  <p class="intro">ΔΕΣ ΤΟ ΜΕΝΟΥ</p>
 
-  <div class="buttons">
-    <button id="btnTake" onclick="showMenu('take')">🥡 Take Away / Κατάστημα</button>
-    <button id="btnDelivery" onclick="showMenu('delivery')">🛵 Delivery</button>
-  </div>
+<h1>BAO BAM Menu</h1>
 
-  <!-- TAKE AWAY MENU -->
-  <div id="menuTake" class="menu">
-   <h2>Beef Burgers</h2>
-
-<div class="product">
-  <div class="product-name">BAM Classic</div>
-  <div class="product-desc">
-    Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Πίκλες, Bacon, Smoky Mayo
-  </div>
-  <div class="prices">
-    <div class="price-box">4,50€<span>Regular</span></div>
-    <div class="price-box">6,30€<span>Large</span></div>
-    <div class="price-box">6,70€<span>Double Smash</span></div>
-    <div class="price-box">9,50€<span>Triple Smash</span></div>
-  </div>
-</div>
-  </div>
-
-  <!-- DELIVERY MENU -->
-  <div id="menuDelivery" class="menu">
-    <h2>Beef Burgers</h2>
-
-<div class="product">
-  <div class="product-name">BAM Classic</div>
-  <div class="product-desc">
-    Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Πίκλες, Bacon, Smoky Mayo
-  </div>
-  <div class="prices">
-    <div class="price-box">4,70€<span>Regular</span></div>
-    <div class="price-box">6,50€<span>Large</span></div>
-    <div class="price-box">6,90€<span>Double Smash</span></div>
-    <div class="price-box">9,70€<span>Triple Smash</span></div>
-  </div>
+<div class="menu-switch">
+  <button class="switch-btn active" onclick="showMenu('takeaway', this)">Take Away</button>
+  <button class="switch-btn" onclick="showMenu('delivery', this)">Delivery</button>
 </div>
 
-<div class="product">
-  <div class="product-name">Cheeseburger</div>
-  <div class="product-desc">
-    Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Κέτσαπ, Μουστάρδα, Ταρτάρ Sauce
-  </div>
-  <div class="prices">
-    <div class="price-box">4,10€<span>Regular</span></div>
-    <div class="price-box">5,80€<span>Large</span></div>
-    <div class="price-box">6,50€<span>Double Smash</span></div>
-    <div class="price-box">9,60€<span>Triple Smash</span></div>
-  </div>
-</div>
+<!-- TAKE AWAY MENU -->
+<div id="takeaway">
+  <h2>Beef Burgers</h2>
+
+  <div class="product">
+    <div class="product-name">BAM Classic</div>
+    <div class="product-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Πίκλες, Bacon, Smoky Mayo</div>
+    <div class="sizes">
+      <button class="size-btn" onclick="setPrice(this, '4,50 €')">Regular</button>
+      <button class="size-btn active" onclick="setPrice(this, '6,30 €')">Large</button>
+      <button class="size-btn" onclick="setPrice(this, '6,70 €')">Double Smash</button>
+      <button class="size-btn" onclick="setPrice(this, '9,50 €')">Triple Smash</button>
+    </div>
+    <div class="price">6,30 €</div>
   </div>
 
-  <footer>© BAO BAM</footer>
+  <div class="product">
+    <div class="product-name">Cheeseburger</div>
+    <div class="product-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Κέτσαπ, Μουστάρδα, Ταρτάρ Sauce</div>
+    <div class="sizes">
+      <button class="size-btn" onclick="setPrice(this, '3,90 €')">Regular</button>
+      <button class="size-btn active" onclick="setPrice(this, '5,60 €')">Large</button>
+      <button class="size-btn" onclick="setPrice(this, '6,30 €')">Double Smash</button>
+      <button class="size-btn" onclick="setPrice(this, '9,40 €')">Triple Smash</button>
+    </div>
+    <div class="price">5,60 €</div>
+  </div>
+
+  <!-- Προσθέτεις κι άλλα burgers εδώ με ίδιο pattern -->
+</div>
+
+<!-- DELIVERY MENU -->
+<div id="delivery" class="hidden">
+  <h2>Beef Burgers</h2>
+
+  <div class="product">
+    <div class="product-name">BAM Classic</div>
+    <div class="product-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Πίκλες, Bacon, Smoky Mayo</div>
+    <div class="sizes">
+      <button class="size-btn" onclick="setPrice(this, '4,70 €')">Regular</button>
+      <button class="size-btn active" onclick="setPrice(this, '6,50 €')">Large</button>
+      <button class="size-btn" onclick="setPrice(this, '6,90 €')">Double Smash</button>
+      <button class="size-btn" onclick="setPrice(this, '9,70 €')">Triple Smash</button>
+    </div>
+    <div class="price">6,50 €</div>
+  </div>
+
+  <div class="product">
+    <div class="product-name">Cheeseburger</div>
+    <div class="product-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Κέτσαπ, Μουστάρδα, Ταρτάρ Sauce</div>
+    <div class="sizes">
+      <button class="size-btn" onclick="setPrice(this, '4,10 €')">Regular</button>
+      <button class="size-btn active" onclick="setPrice(this, '5,80 €')">Large</button>
+      <button class="size-btn" onclick="setPrice(this, '6,50 €')">Double Smash</button>
+      <button class="size-btn" onclick="setPrice(this, '9,60 €')">Triple Smash</button>
+    </div>
+    <div class="price">5,80 €</div>
+  </div>
+
+  <!-- Προσθέτεις κι άλλα burgers εδώ με ίδιο pattern -->
 </div>
 
 <script>
-  function showMenu(type) {
-    document.getElementById('menuTake').style.display = 'none';
-    document.getElementById('menuDelivery').style.display = 'none';
+function setPrice(button, price) {
+  const product = button.closest('.product');
+  product.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('active'));
+  button.classList.add('active');
+  product.querySelector('.price').innerText = price;
+}
 
-    document.getElementById('btnTake').classList.remove('active');
-    document.getElementById('btnDelivery').classList.remove('active');
+function showMenu(menu, btn) {
+  document.getElementById('takeaway').classList.add('hidden');
+  document.getElementById('delivery').classList.add('hidden');
+  document.getElementById(menu).classList.remove('hidden');
 
-    if (type === 'take') {
-      document.getElementById('menuTake').style.display = 'block';
-      document.getElementById('btnTake').classList.add('active');
-    }
-
-    if (type === 'delivery') {
-      document.getElementById('menuDelivery').style.display = 'block';
-      document.getElementById('btnDelivery').classList.add('active');
-    }
-  }
+  // Κουμπί ενεργό
+  document.querySelectorAll('.switch-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
 </script>
+
 </body>
 </html>
-
-
-
 
