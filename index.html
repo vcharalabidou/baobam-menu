@@ -69,6 +69,44 @@
   .price {
     font-weight: bold;
   }
+.product {
+  margin: 25px 0;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #333;
+}
+
+.product-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.product-desc {
+  font-size: 14px;
+  color: #ccc;
+  margin: 6px 0 12px;
+}
+
+.prices {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.price-box {
+  background: #1f1f1f;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.price-box span {
+  display: block;
+  font-size: 12px;
+  font-weight: normal;
+  color: #aaa;
+}
 
   .menu {
     display: none;
@@ -95,20 +133,51 @@
 
   <!-- TAKE AWAY MENU -->
   <div id="menuTake" class="menu">
-    <h2>Burgers</h2>
-    <div class="item">
-      <span>BAM Classic Burger</span>
-      <span class="price">7,50€</span>
-    </div>
+   <h2>Beef Burgers</h2>
+
+<div class="product">
+  <div class="product-name">BAM Classic</div>
+  <div class="product-desc">
+    Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Πίκλες, Bacon, Smoky Mayo
+  </div>
+  <div class="prices">
+    <div class="price-box">4,50€<span>Regular</span></div>
+    <div class="price-box">6,30€<span>Large</span></div>
+    <div class="price-box">6,70€<span>Double Smash</span></div>
+    <div class="price-box">9,50€<span>Triple Smash</span></div>
+  </div>
+</div>
   </div>
 
   <!-- DELIVERY MENU -->
   <div id="menuDelivery" class="menu">
-    <h2>Burgers</h2>
-    <div class="item">
-      <span>BAM Classic Burger</span>
-      <span class="price">8,20€</span>
-    </div>
+    <h2>Beef Burgers</h2>
+
+<div class="product">
+  <div class="product-name">BAM Classic</div>
+  <div class="product-desc">
+    Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Πίκλες, Bacon, Smoky Mayo
+  </div>
+  <div class="prices">
+    <div class="price-box">4,70€<span>Regular</span></div>
+    <div class="price-box">6,50€<span>Large</span></div>
+    <div class="price-box">6,90€<span>Double Smash</span></div>
+    <div class="price-box">9,70€<span>Triple Smash</span></div>
+  </div>
+</div>
+
+<div class="product">
+  <div class="product-name">Cheeseburger</div>
+  <div class="product-desc">
+    Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Κέτσαπ, Μουστάρδα, Ταρτάρ Sauce
+  </div>
+  <div class="prices">
+    <div class="price-box">4,10€<span>Regular</span></div>
+    <div class="price-box">5,80€<span>Large</span></div>
+    <div class="price-box">6,50€<span>Double Smash</span></div>
+    <div class="price-box">9,60€<span>Triple Smash</span></div>
+  </div>
+</div>
   </div>
 
   <footer>© BAO BAM</footer>
@@ -135,6 +204,7 @@
 </script>
 </body>
 </html>
+
 
 
 
