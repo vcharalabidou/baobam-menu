@@ -1,185 +1,240 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BAO BAM Menu</title>
-<style>
-body {
-  background: #111;
-  color: #fff;
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 20px;
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bao Bam – Delivery Menu</title>
 
-h1, h2 {
-  color: #ff9800;
-  text-align: center;
-}
+  <style>
+    /* ====== ΒΑΣΙΚΑ ====== */
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #000; /* ΜΑΥΡΟ ΦΟΝΤΟ */
+      color: #e60000; /* ΚΟΚΚΙΝΑ ΓΡΑΜΜΑΤΑ */
+      text-align: center;
+    }
 
-.menu-switch {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-bottom: 25px;
-}
+    /* ====== LOGO ====== */
+    #logo {
+      width: 220px;
+      margin: 20px auto 10px;
+      display: block;
+    }
 
-.switch-btn {
-  padding: 10px 20px;
-  border-radius: 6px;
-  border: 1px solid #ff9800;
-  background: #222;
-  color: #fff;
-  cursor: pointer;
-  font-weight: bold;
-}
+    h1 {
+      margin: 10px 0 30px;
+      font-size: 32px;
+      letter-spacing: 2px;
+    }
 
-.switch-btn.active {
-  background: #ff9800;
-  color: #000;
-}
+    /* ====== ΚΟΥΜΠΑΚΙΑ ΚΑΤΗΓΟΡΙΩΝ ====== */
+    .categories {
+      margin-bottom: 30px;
+    }
 
-.product {
-  margin: 25px 0;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #333;
-}
+    .category-btn {
+      background: #fff;
+      color: #e60000;
+      border: 2px solid #e60000;
+      border-radius: 25px;
+      padding: 10px 18px;
+      margin: 6px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: 0.3s;
+    }
 
-.product-name {
-  font-size: 18px;
-  font-weight: bold;
-}
+    .category-btn.active {
+      background: #e60000;
+      color: #fff;
+    }
 
-.product-desc {
-  font-size: 14px;
-  color: #ccc;
-  margin: 6px 0 12px;
-}
+    /* ====== ΠΕΡΙΟΧΗ ΜΕΝΟΥ ====== */
+    #menu {
+      max-width: 900px;
+      margin: 0 auto 60px;
+      padding: 0 15px;
+      display: none; /* ΔΕΝ ΦΑΙΝΕΤΑΙ ΑΝ ΔΕΝ ΠΑΤΗΘΕΙ ΚΑΤΗΓΟΡΙΑ */
+    }
 
-.sizes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 10px;
-}
+    /* ====== ΥΠΟΚΑΤΗΓΟΡΙΕΣ ====== */
+    .subcategory {
+      display: inline-block; /* να αγκαλιάζει τα γράμματα */
+      background: #e60000;
+      color: #fff;
+      padding: 8px 14px;
+      margin: 30px 0 15px;
+      font-size: 20px;
+      text-align: left;
+      transform: rotate(4deg); /* λοξό προς τα δεξιά */
+    }
 
-.size-btn {
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: 1px solid #444;
-  background: #222;
-  color: #fff;
-  font-size: 13px;
-  cursor: pointer;
-}
+    /* ====== ΠΡΟΪΟΝ ====== */
+    .item {
+      text-align: left;
+      margin-bottom: 20px;
+    }
 
-.size-btn.active {
-  background: #ff9800;
-  color: #000;
-  border-color: #ff9800;
-}
+    .item-name {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
 
-.price {
-  font-size: 18px;
-  font-weight: bold;
-}
+    .item-desc {
+      font-size: 14px;
+      color: #ddd;
+      margin-bottom: 6px;
+    }
 
-.hidden {
-  display: none;
-}
-</style>
+    /* ====== ΤΙΜΗ ====== */
+    .price {
+      display: inline-block;
+      background: #ffcc00; /* ΚΙΤΡΙΝΟ ΦΟΝΤΟ */
+      color: #000; /* ΜΑΥΡΗ ΤΙΜΗ */
+      padding: 4px 10px;
+      font-weight: bold;
+      transform: rotate(-5deg);
+    }
+  </style>
 </head>
 <body>
 
-<h1>BAO BAM Menu</h1>
+  <!-- ΠΡΟΣΟΧΗ: το όνομα ΠΡΕΠΕΙ να είναι ΑΚΡΙΒΩΣ ίδιο -->
+  <!-- Αν ΔΕΝ εμφανίζεται, δοκίμασε ΜΙΚΡΑ γράμματα παντού -->
+  <img id="logo" src="./baobam_white.png" alt="Bao Bam Logo" />
 
-<div class="menu-switch">
-  <button class="switch-btn active" onclick="showMenu('takeaway', this)">Take Away</button>
-  <button class="switch-btn" onclick="showMenu('delivery', this)">Delivery</button>
-</div>
+  <h1>DELIVERY MENU</h1>
 
-<!-- TAKE AWAY MENU -->
-<div id="takeaway">
-  <h2>Beef Burgers</h2>
-
-  <div class="product">
-    <div class="product-name">BAM Classic</div>
-    <div class="product-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Πίκλες, Bacon, Smoky Mayo</div>
-    <div class="sizes">
-      <button class="size-btn" onclick="setPrice(this, '4,50 €')">Regular</button>
-      <button class="size-btn active" onclick="setPrice(this, '6,30 €')">Large</button>
-      <button class="size-btn" onclick="setPrice(this, '6,70 €')">Double Smash</button>
-      <button class="size-btn" onclick="setPrice(this, '9,50 €')">Triple Smash</button>
-    </div>
-    <div class="price">6,30 €</div>
+  <!-- ΚΟΥΜΠΙΑ -->
+  <div class="categories">
+    <button class="category-btn" onclick="showCategory('bao')">Bao Buns</button>
+    <button class="category-btn" onclick="showCategory('burgers')">Burgers</button>
+    <button class="category-btn" onclick="showCategory('hotdogs')">Hot Dogs</button>
   </div>
 
-  <div class="product">
-    <div class="product-name">Cheeseburger</div>
-    <div class="product-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Κέτσαπ, Μουστάρδα, Ταρτάρ Sauce</div>
-    <div class="sizes">
-      <button class="size-btn" onclick="setPrice(this, '3,90 €')">Regular</button>
-      <button class="size-btn active" onclick="setPrice(this, '5,60 €')">Large</button>
-      <button class="size-btn" onclick="setPrice(this, '6,30 €')">Double Smash</button>
-      <button class="size-btn" onclick="setPrice(this, '9,40 €')">Triple Smash</button>
-    </div>
-    <div class="price">5,60 €</div>
-  </div>
+  <!-- ΜΕΝΟΥ -->
+  <div id="menu"></div>
 
-  <!-- Προσθέτεις κι άλλα burgers εδώ με ίδιο pattern -->
-</div>
+  <script>
+    const menu = document.getElementById('menu');
+    const buttons = document.querySelectorAll('.category-btn');
 
-<!-- DELIVERY MENU -->
-<div id="delivery" class="hidden">
-  <h2>Beef Burgers</h2>
+    function resetButtons() {
+      buttons.forEach(btn => btn.classList.remove('active'));
+    }
 
-  <div class="product">
-    <div class="product-name">BAM Classic</div>
-    <div class="product-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Πίκλες, Bacon, Smoky Mayo</div>
-    <div class="sizes">
-      <button class="size-btn" onclick="setPrice(this, '4,70 €')">Regular</button>
-      <button class="size-btn active" onclick="setPrice(this, '6,50 €')">Large</button>
-      <button class="size-btn" onclick="setPrice(this, '6,90 €')">Double Smash</button>
-      <button class="size-btn" onclick="setPrice(this, '9,70 €')">Triple Smash</button>
-    </div>
-    <div class="price">6,50 €</div>
-  </div>
+    function showCategory(category) {
+      resetButtons();
+      event.target.classList.add('active');
+      menu.style.display = 'block';
 
-  <div class="product">
-    <div class="product-name">Cheeseburger</div>
-    <div class="product-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Κέτσαπ, Μουστάρδα, Ταρτάρ Sauce</div>
-    <div class="sizes">
-      <button class="size-btn" onclick="setPrice(this, '4,10 €')">Regular</button>
-      <button class="size-btn active" onclick="setPrice(this, '5,80 €')">Large</button>
-      <button class="size-btn" onclick="setPrice(this, '6,50 €')">Double Smash</button>
-      <button class="size-btn" onclick="setPrice(this, '9,60 €')">Triple Smash</button>
-    </div>
-    <div class="price">5,80 €</div>
-  </div>
+      if (category === 'bao') {
+        menu.innerHTML = `
+          <div class="item">
+            <div class="item-name">Crunchy Chick Bao</div>
+            <div class="item-desc">Τραγανό Φιλέτο Κοτόπουλο, Mαρούλι, Καρότο, Sweet Chilli Mayo, Σουσάμι</div>
+            <span class="price">4.40€</span>
+          </div>
+         <div class="item">
+            <div class="item-name">Pulled Pork Bao</div>
+            <div class="item-desc">Pulled pork, Mαρούλι, Καρότο, BBQ Sauce</div>
+            <span class="price">4.50€</span>
+          </div>
+         <div class="item">
+            <div class="item-name">Pancetaki Bao</div>
+            <div class="item-desc">Πανσέτακι χοιρινό, Μαρούλι, Κρεμμύδι, Smoky Mayo, Σουσάμι</div>
+            <span class="price">4.60€</span>
+          </div>
+         <div class="item">
+            <div class="item-name">Truffle Mayo Bao Bun </div>
+            <div class="item-desc">Χειροποίητο μοσχαρίσιο Μπιφτέκι, Μαρούλι, Mαρούλι,Truffle Mayo, Crispy Onion </div>
+            <span class="price">5.20€</span>
+          </div>
+          <div class="item">
+            <div class="item-name">Roasted onion Bao Bun</div>
+            <div class="item-desc">Χειροποίητο μοσχαρίσιο Μπιφτέκι, Μαρούλι, Ντομάτα, Roasted onion sauce</div>
+            <span class="price">5.20€</span>
+          </div>
+          <div class="item">
+            <div class="item-name">Bao Bun Γαριδες</div>
+            <div class="item-desc">Τραγανές Γαρίδες, Μαρούλι, Ρόκα, Vegan Mayo, Sweet Chilli, Σουσάμι</div>
+            <span class="price">5.20€</span>
+          </div>
+          <div class="item">
+            <div class="item-name">Mushroom Bao Bun </div>
+            <div class="item-desc">Μανιτάρια, Ρόκα, Ψητές Πιπεριές, Chimichurri  Mayo, Crispy Onion </div>
+            <span class="price">4.40€</span>
+          </div>`;
+      }
 
-  <!-- Προσθέτεις κι άλλα burgers εδώ με ίδιο pattern -->
-</div>
+      if (category === 'burgers') {
+        menu.innerHTML = `
+          <div class="subcategory">Beef Burgers</div>
+          <div class="item">
+            <div class="item-name">BAM Classic</div>
+            <div class="item-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Πίκλες, Bacon, Smoky Mayo</div>
+            <span class="price">Regular 4.70€</span>
+            <span class="price">Large 6.50€</span>
+            <span class="price">Double Smash 6.90€</span>
+            <span class="price">Triple Smash 9.70€</span>
+          </div>
+ <div class="item">
+            <div class="item-name">BAM Classic</div>
+            <div class="item-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Πίκλες, Bacon, Smoky Mayo</div>
+            <span class="price">Regular 4.70€</span>
+            <span class="price">Large 6.50€</span>
+            <span class="price">Double Smash 6.90€</span>
+            <span class="price">Triple Smash 9.70€</span>
+          </div>
+ <div class="item">
+            <div class="item-name">BAM Classic</div>
+            <div class="item-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Πίκλες, Bacon, Smoky Mayo</div>
+            <span class="price">Regular 4.70€</span>
+            <span class="price">Large 6.50€</span>
+            <span class="price">Double Smash 6.90€</span>
+            <span class="price">Triple Smash 9.70€</span>
+          </div>
+ <div class="item">
+            <div class="item-name">BAM Classic</div>
+            <div class="item-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Πίκλες, Bacon, Smoky Mayo</div>
+            <span class="price">Regular 4.70€</span>
+            <span class="price">Large 6.50€</span>
+            <span class="price">Double Smash 6.90€</span>
+            <span class="price">Triple Smash 9.70€</span>
+          </div>
+ <div class="item">
+            <div class="item-name">BAM Classic</div>
+            <div class="item-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Πίκλες, Bacon, Smoky Mayo</div>
+            <span class="price">Regular 4.70€</span>
+            <span class="price">Large 6.50€</span>
+            <span class="price">Double Smash 6.90€</span>
+            <span class="price">Triple Smash 9.70€</span>
+          </div>
+          <div class="subcategory">Chicken Burgers</div>
+          <div class="item">
+            <div class="item-name">Golden Chicken</div>
+            <div class="item-desc">Τραγανό κοτόπουλο, cheddar, mayo</div>
+            <span class="price">5€</span>
+          </div>`;
+      }
 
-<script>
-function setPrice(button, price) {
-  const product = button.closest('.product');
-  product.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('active'));
-  button.classList.add('active');
-  product.querySelector('.price').innerText = price;
-}
-
-function showMenu(menu, btn) {
-  document.getElementById('takeaway').classList.add('hidden');
-  document.getElementById('delivery').classList.add('hidden');
-  document.getElementById(menu).classList.remove('hidden');
-
-  // Κουμπί ενεργό
-  document.querySelectorAll('.switch-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-}
-</script>
+      if (category === 'hotdogs') {
+        menu.innerHTML = `
+          <div class="item">
+            <div class="item-name">Classic Hot Dog</div>
+            <div class="item-desc">Λουκάνικο, ketchup, μουστάρδα</div>
+            <span class="price">4€</span>
+          </div>
+          <div class="item">
+            <div class="item-name">Cheese Bacon Dog</div>
+            <div class="item-desc">Λουκάνικο, cheddar, bacon</div>
+            <span class="price">4.5€</span>
+          </div>`;
+      }
+    }
+  </script>
 
 </body>
 </html>
-
