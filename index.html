@@ -29,21 +29,34 @@
     }
 
     /* ====== ΚΟΥΜΠΑΚΙΑ ΚΑΤΗΓΟΡΙΩΝ ====== */
-    .categories {
-      margin-bottom: 30px;
-    }
+   
+.categories {
+  margin-bottom: 30px;
+  overflow-x: auto;
+  white-space: nowrap;   /* 👈 όλα σε μία σειρά */
+  padding: 10px 15px;
+  scrollbar-width: none;
+}
 
-    .category-btn {
-      background: #fff;
-      color: #e60000;
-      border: 2px solid #e60000;
-      border-radius: 25px;
-      padding: 10px 18px;
-      margin: 6px;
-      cursor: pointer;
-      font-size: 15px;
-      transition: 0.3s;
-    }
+.categories::-webkit-scrollbar {
+  display: none;
+}
+
+
+    
+
+.category-btn {
+  display: inline-block;   /* 👈 ΟΧΙ flex */
+  background: #fff;
+  color: #e60000;
+  border: 2px solid #e60000;
+  border-radius: 999px;    /* 👈 full oval */
+  padding: 10px 22px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-right: 10px;      /* 👈 απόσταση μεταξύ κουμπιών */
+}
 
     .category-btn.active {
       background: #e60000;
@@ -65,7 +78,7 @@
       color: #fff;
       padding: 8px 14px;
       margin: 30px 0 15px;
-      font-size: 20px;
+      font-size:30px;
       text-align: left;
       transform: rotate(4deg); /* λοξό προς τα δεξιά */
     }
@@ -73,11 +86,11 @@
     /* ====== ΠΡΟΪΟΝ ====== */
     .item {
       text-align: left;
-      margin-bottom: 20px;
+      margin-bottom: 28px;
     }
 
     .item-name {
-      font-size: 18px;
+      font-size: 14px;
       font-weight: bold;
       margin-bottom: 4px;
     }
@@ -91,15 +104,27 @@
     /* ====== ΤΙΜΗ ====== */
     .price {
       display: inline-block;
-      background: #ffcc00; /* ΚΙΤΡΙΝΟ ΦΟΝΤΟ */
+      background: #ffcc00; /*   ΚΙΤΡΙΝΟ ΦΟΝΤΟ */
       color: #000; /* ΜΑΥΡΗ ΤΙΜΗ */
-      padding: 4px 10px;
+      padding: 4px 8px;
       font-weight: bold;
-      transform: rotate(-5deg);
+      transform: rotate(-1deg);
+      margin: 4px 6px 5px 0;
+
+      /* Αναδίπλωση κειμένου (Double/Triple Smash κτλ) */
+      max-width: 130px;
+      white-space: normal;
+      line-height: 1.5;
+    }
+
+    .prices {
+      margin-top: 6px;
     }
   </style>
 </head>
 <body>
+
+
 
   <!-- ΠΡΟΣΟΧΗ: το όνομα ΠΡΕΠΕΙ να είναι ΑΚΡΙΒΩΣ ίδιο -->
   <!-- Αν ΔΕΝ εμφανίζεται, δοκίμασε ΜΙΚΡΑ γράμματα παντού -->
@@ -109,9 +134,18 @@
 
   <!-- ΚΟΥΜΠΙΑ -->
   <div class="categories">
-    <button class="category-btn" onclick="showCategory('bao')">Bao Buns</button>
-    <button class="category-btn" onclick="showCategory('burgers')">Burgers</button>
-    <button class="category-btn" onclick="showCategory('hotdogs')">Hot Dogs</button>
+    <button  id="btn-bao" class="category-btn" onclick="showCategory('bao', this)">Bao Buns</button>
+    <button class="category-btn" onclick="showCategory('burgers', this)">Burgers</button>
+    <button class="category-btn" onclick="showCategory('hotdogs', this)">Hot Dogs</button>
+    <button class="category-btn" onclick="showCategory('starters', this)">Starters</button>
+    <button class="category-btn" onclick="showCategory('clubsandwiches', this)">Club Sandwiches</button>
+    <button class="category-btn" onclick="showCategory('tortigies', this)">Τορτίγιες</button>
+    <button class="category-btn" onclick="showCategory('sandwiches', this)">Sandwiches</button>
+    <button class="category-btn" onclick="showCategory('pites', this)">Κυπριακές  Πίτες</button>
+    <button class="category-btn" onclick="showCategory('salads', this)">Salads</button>
+    <button class="category-btn" onclick="showCategory('kidsmenu', this)">Kid's Menu</button>
+    <button class="category-btn" onclick="showCategory('sweets', this)">Sweets</button>
+    <button class="category-btn" onclick="showCategory('sauces', this)">Sauces</button>
   </div>
 
   <!-- ΜΕΝΟΥ -->
@@ -125,116 +159,647 @@
       buttons.forEach(btn => btn.classList.remove('active'));
     }
 
-    function showCategory(category) {
-      resetButtons();
-      event.target.classList.add('active');
+    function showCategory(category, btn) {
+    resetButtons();
+    
+ if (btn) {
+        btn.classList.add('active');
+      }
+
       menu.style.display = 'block';
 
       if (category === 'bao') {
+
+<!-- BAO BUNS -->
         menu.innerHTML = `
           <div class="item">
             <div class="item-name">Crunchy Chick Bao</div>
-            <div class="item-desc">Τραγανό Φιλέτο Κοτόπουλο, Mαρούλι, Καρότο, Sweet Chilli Mayo, Σουσάμι</div>
+            <div class="item-desc">Τραγανό Φιλέτο Κοτόπουλο, Μαρούλι, Καρότο, Sweet Chilli Mayo, Σουσάμι</div>
             <span class="price">4.40€</span>
           </div>
-         <div class="item">
+
+          <div class="item">
             <div class="item-name">Pulled Pork Bao</div>
-            <div class="item-desc">Pulled pork, Mαρούλι, Καρότο, BBQ Sauce</div>
+            <div class="item-desc">Pulled pork, Μαρούλι, Καρότο, BBQ Sauce</div>
             <span class="price">4.50€</span>
           </div>
-         <div class="item">
+
+          <div class="item">
             <div class="item-name">Pancetaki Bao</div>
             <div class="item-desc">Πανσέτακι χοιρινό, Μαρούλι, Κρεμμύδι, Smoky Mayo, Σουσάμι</div>
             <span class="price">4.60€</span>
           </div>
-         <div class="item">
-            <div class="item-name">Truffle Mayo Bao Bun </div>
-            <div class="item-desc">Χειροποίητο μοσχαρίσιο Μπιφτέκι, Μαρούλι, Mαρούλι,Truffle Mayo, Crispy Onion </div>
+
+          <div class="item">
+            <div class="item-name">Truffle Mayo Bao Bun</div>
+            <div class="item-desc">Χειροποίητο μοσχαρίσιο Μπιφτέκι, Μαρούλι, Truffle Mayo, Crispy Onion</div>
             <span class="price">5.20€</span>
           </div>
+
           <div class="item">
-            <div class="item-name">Roasted onion Bao Bun</div>
+            <div class="item-name">Roasted Onion Bao Bun</div>
             <div class="item-desc">Χειροποίητο μοσχαρίσιο Μπιφτέκι, Μαρούλι, Ντομάτα, Roasted onion sauce</div>
             <span class="price">5.20€</span>
           </div>
+
           <div class="item">
-            <div class="item-name">Bao Bun Γαριδες</div>
+            <div class="item-name">Bao Bun Γαρίδες</div>
             <div class="item-desc">Τραγανές Γαρίδες, Μαρούλι, Ρόκα, Vegan Mayo, Sweet Chilli, Σουσάμι</div>
             <span class="price">5.20€</span>
           </div>
+
           <div class="item">
-            <div class="item-name">Mushroom Bao Bun </div>
-            <div class="item-desc">Μανιτάρια, Ρόκα, Ψητές Πιπεριές, Chimichurri  Mayo, Crispy Onion </div>
+            <div class="item-name">Mushroom Bao Bun</div>
+            <div class="item-desc">Μανιτάρια, Ρόκα, Ψητές Πιπεριές, Chimichurri Mayo, Crispy Onion</div>
             <span class="price">4.40€</span>
-          </div>`;
+          </div>
+        `;
       }
 
       if (category === 'burgers') {
+
+<!-- BURGERS -->
         menu.innerHTML = `
           <div class="subcategory">Beef Burgers</div>
+
           <div class="item">
             <div class="item-name">BAM Classic</div>
             <div class="item-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Πίκλες, Bacon, Smoky Mayo</div>
-            <span class="price">Regular 4.70€</span>
-            <span class="price">Large 6.50€</span>
-            <span class="price">Double Smash 6.90€</span>
-            <span class="price">Triple Smash 9.70€</span>
+            <div class="prices">
+              <span class="price">Regular 4.70€</span>
+              <span class="price">Large 6.50€</span>
+              <span class="price">Double Smash 6.90€</span>
+              <span class="price">Triple Smash 9.70€</span>
+            </div>
           </div>
- <div class="item">
-            <div class="item-name">BAM Classic</div>
-            <div class="item-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Πίκλες, Bacon, Smoky Mayo</div>
-            <span class="price">Regular 4.70€</span>
-            <span class="price">Large 6.50€</span>
-            <span class="price">Double Smash 6.90€</span>
-            <span class="price">Triple Smash 9.70€</span>
+
+          <div class="item">
+            <div class="item-name">Cheeseburger</div>
+            <div class="item-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Κέτσαπ,  Μουστάρδα, Ταρτάρ Sauce</div>
+            <div class="prices">
+              <span class="price">Regular 4.10€</span>
+              <span class="price">Large 5.80€</span>
+              <span class="price">Double Smash 6.50€</span>
+              <span class="price">Triple Smash 9.60€</span>
+            </div>
           </div>
- <div class="item">
-            <div class="item-name">BAM Classic</div>
-            <div class="item-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Πίκλες, Bacon, Smoky Mayo</div>
-            <span class="price">Regular 4.70€</span>
-            <span class="price">Large 6.50€</span>
-            <span class="price">Double Smash 6.90€</span>
-            <span class="price">Triple Smash 9.70€</span>
+
+          <div class="item">
+            <div class="item-name">Onion Bam</div>
+            <div class="item-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Μαρούλι, Ντομάτα, Onion Rings, Roasted onion sauce</div>
+            <div class="prices">
+              <span class="price">Regular 4.40€</span>
+              <span class="price">Large 6.50€</span>
+              <span class="price">Double Smash 6.40€</span>
+              <span class="price">Triple Smash 9.70€</span>
+            </div>
           </div>
- <div class="item">
-            <div class="item-name">BAM Classic</div>
-            <div class="item-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Πίκλες, Bacon, Smoky Mayo</div>
-            <span class="price">Regular 4.70€</span>
-            <span class="price">Large 6.50€</span>
-            <span class="price">Double Smash 6.90€</span>
-            <span class="price">Triple Smash 9.70€</span>
+
+          <div class="item">
+            <div class="item-name">BBQ Wild</div>
+            <div class="item-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Ρόκα, Κρεμμύδι, Μαγιονέζα, BBQ Sauce</div>
+            <div class="prices">
+              <span class="price">Regular 4.90€</span>
+              <span class="price">Large 6.30€</span>
+              <span class="price">Double Smash 6.90€</span>
+              <span class="price">Triple Smash 9.70€</span>
+            </div>
           </div>
- <div class="item">
-            <div class="item-name">BAM Classic</div>
-            <div class="item-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Πίκλες, Bacon, Smoky Mayo</div>
-            <span class="price">Regular 4.70€</span>
-            <span class="price">Large 6.50€</span>
-            <span class="price">Double Smash 6.90€</span>
-            <span class="price">Triple Smash 9.70€</span>
+
+          <div class="item">
+            <div class="item-name">Hot Slaw</div>
+            <div class="item-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Gouda, Colslaw, Σριράτσα, Μαγιονέζα</div>
+            <div class="prices">
+              <span class="price">Regular 4.40€</span>
+              <span class="price">Large 6.10€</span>
+              <span class="price">Double Smash 6.50€</span>
+              <span class="price">Triple Smash 9.50€</span>
+            </div>
+
+
+          <div class="item">
+            <div class="item-name">Mexican Corn</div>
+            <div class="item-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Μαρούλι, Ντομάτα,Κρεμμύδι, Καλαμπόκι, Μαγιονέζα, Sweet chilli sauce, Τριμμένη Παρμεζάνα</div>
+            <div class="prices">
+              <span class="price">Regular 5.10€</span>
+              <span class="price">Large 7.00€</span>
+              <span class="price">Double Smash 7.50€</span>
+              <span class="price">Triple Smash 9.90€</span>
+            </div>
           </div>
+
+          <div class="item">
+            <div class="item-name">Double bacon</div>
+            <div class="item-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Διπλο Bacon, Μαρούλι, Μαγιονεζα, Chutney Πιπεριάς</div>
+            <div class="prices">
+              <span class="price">Regular 5.10€</span>
+              <span class="price">Large 6.70€</span>
+              <span class="price">Double Smash 7.20€</span>
+              <span class="price">Triple Smash 9.90€</span>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Drunk onion burger</div>
+            <div class="item-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Gouda, Ρόκα, Ντομάτα, Bacon, Μαγιονέζα, Καραμελωμένα Κρεμμύδια</div>
+            <div class="prices">
+              <span class="price">Regular 5.10€</span>
+              <span class="price">Large 6.50€</span>
+              <span class="price">Double Smash 6.90€</span>
+              <span class="price">Triple Smash 9.70€</span>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Egg Burger</div>
+            <div class="item-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Βacon, Μαρούλι, Αυγό , Smoky Mayo</div>
+            <div class="prices">
+              <span class="price">Regular 5.30€</span>
+              <span class="price">Large 7.20€</span>
+              <span class="price">Double Smash 7.60€</span>
+              <span class="price">Triple Smash 10.10€</span>
+            </div>
+
+         <div class="item">
+            <div class="item-name">Truffle Beef Burger</div>
+            <div class="item-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Gouda, Μαρούλι, Μανιτάρια, Truffle Mayo</div>
+            <div class="prices">
+              <span class="price">Regular 5.30€</span>
+              <span class="price">Large 7.30€</span>
+              <span class="price">Double Smash 7.70€</span>
+              <span class="price">Triple Smash 10.10€</span>
+            </div>
+          </div>
+          </div>
+
+
+
           <div class="subcategory">Chicken Burgers</div>
+
           <div class="item">
             <div class="item-name">Golden Chicken</div>
-            <div class="item-desc">Τραγανό κοτόπουλο, cheddar, mayo</div>
-            <span class="price">5€</span>
-          </div>`;
+            <div class="item-desc">Τραγανό Φιλέτο Κοτόπουλο, Mαρούλι, Ντομάτα, Roasted onion sauce</div>
+             <span class="price">Regular 4.10€</span>
+              <span class="price">Large 6.10€</span>
+          </div>
+
+        <div class="item">
+            <div class="item-name">Caesar's Burger </div>
+            <div class="item-desc">Ψητό Φιλέτο Kοτόπουλο, Μαρούλι, Bacon, Παρμεζάνα, Caesar Sauce</div>
+             <span class="price">Regular 4.00€</span>
+              <span class="price">Large 6.00€</span>
+          </div>
+
+       <div class="subcategory">Dirty Burgers  </div>
+
+         <div class="item">
+            <div class="item-name">Pulled Pork</div>
+            <div class="item-desc">Pulled Pork, Coleslaw, Πίκλες, Μαγιονέζα, BBQ Sauce</div>
+             <span class="price">Large 6.00€</span>
+          </div>
+
+        <div class="item">
+            <div class="item-name">Beef n Pancetta </div>
+            <div class="item-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Gouda, Χοιρινή Πανσέτα, Ντομάτα, Κρεμμύδι, Chimichurri Mayo</div>
+             <span class="price">Large 8.20€</span>
+          </div>
+
+        `;
       }
 
+<!-- HOT DOGS -->
       if (category === 'hotdogs') {
-        menu.innerHTML = `
+       menu.innerHTML = `
           <div class="item">
             <div class="item-name">Classic Hot Dog</div>
-            <div class="item-desc">Λουκάνικο, ketchup, μουστάρδα</div>
-            <span class="price">4€</span>
+            <div class="item-desc">Λουκάνικο, Μαγιονέζα, Κέτσαπ, Μουστάρδα</div>
+            <span class="price"> ΦΡΑΝΚΦΟΥΡΤΗΣ 3.30€</span>
+            <span class="price"> ΧΩΡΙΑΤΙΚΟ 4.30€</span>
+          </div>
+
+           <div class="item">
+            <div class="item-name">Slaw Dog </div>
+            <div class="item-desc">Λουκάνικο , Coleslaw, Κέτσαπ, Crispy onion</div>
+            <span class="price"> ΦΡΑΝΚΦΟΥΡΤΗΣ 3.50€</span>
+            <span class="price"> ΧΩΡΙΑΤΙΚΟ 4.50€</span>
+          </div>
+
+            <div class="item">
+            <div class="item-name">BBQ Hot Dog</div>
+            <div class="item-desc">Λουκάνικο , Πιπεριές, Πατάτες, BBQ Sauce</div>
+            <span class="price"> ΦΡΑΝΚΦΟΥΡΤΗΣ 3.60€</span>
+            <span class="price"> ΧΩΡΙΑΤΙΚΟ 4.60€</span>
+         
+          </div> <div class="item">
+            <div class="item-name">Bacon Hot Dog</div>
+            <div class="item-desc">Λουκάνικο, Bacon, Μαρούλι, Καραμελωμένα Κρεμμύδια, Μαγιονέζα </div>
+            <span class="price"> ΦΡΑΝΚΦΟΥΡΤΗΣ 3.90€</span>
+            <span class="price"> ΧΩΡΙΑΤΙΚΟ 4.90€</span>
+          </div> <div class="item">
+            <div class="item-name">Egg Dog</div>
+            <div class="item-desc">Λουκάνικο , Πατάτες, Αυγό, Κέτσαπ, Μαγιονέζα</div>
+            <span class="price"> ΦΡΑΝΚΦΟΥΡΤΗΣ 4.10€</span>
+            <span class="price"> ΧΩΡΙΑΤΙΚΟ 5.10€</span>
+          </div> <div class="item">
+            <div class="item-name">Hot Hot Dog </div>
+            <div class="item-desc">Λουκάνικο, Καρότο, Κρεμμύδι, Πίκλες, Μαγιονέζα, Sriracha Chili Sauce</div>
+            <span class="price"> ΦΡΑΝΚΦΟΥΡΤΗΣ 3.70€</span>
+            <span class="price"> ΧΩΡΙΑΤΙΚΟ 4.70€</span>
+          </div> <div class="item">
+            <div class="item-name">Corn n chilli  Dog</div>
+            <div class="item-desc">Λουκάνικο, Καλαμπόκι, Ντομάτα, Τριμμένη Παρμεζάνα, Sweet Chilli  Mayo  </div>
+            <span class="price"> ΦΡΑΝΚΦΟΥΡΤΗΣ 4.2€</span>
+            <span class="price"> ΧΩΡΙΑΤΙΚΟ 5.2€</span>
+          </div>  
+        `;
+      }
+ 
+
+<!-- STARTERS -->
+  if (category === 'starters') {
+        menu.innerHTML = `
+          <div class="item">
+            <div class="item-name">French fries</div>
+            <div class="item-desc">Κλασικές και Αγαπημένες Τηγανητές πατάτες</div>
+            <span class="price">3.20€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Πατάτες Fry N Dip</div>
+            <div class="item-desc">Αυλακωτές τηγανητές πατάτες, ιδανικές για …dipαρισμα!</div>
+            <span class="price">3.40€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Πατάτες Country Style</div>
+            <div class="item-desc">Πατάτες Country Style με μυρωδικά</div>
+            <span class="price">4.20€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Γλυκοπατάτες</div>
+            <div class="item-desc">Τραγανές Τηγανητές Γλυκοπατάτες</div>
+            <span class="price">4.30€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Onion Rings</div>
+            <div class="item-desc">10 τεμάχια τηγανητά κρεμμύδια* + BBQ Sauce</div>
+            <span class="price">3.60€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Cheddar Cheese Jalapenos</div>
+            <div class="item-desc">6 τραγανές Κροκέτες* με τυρί cheddar και πιπεριές χαλαπένιος</div>
+            <span class="price">6.80€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Chicken ROP CORN</div>
+            <div class="item-desc">Τραγανές Μπουκίτσες Κοτόπουλο + Sauce Μουστάρδας</div>
+            <span class="price">5.90€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Buffalo chicken wings</div>
+            <div class="item-desc">6 Πικάντικες φτερούγες κοτόπουλου </div>
+            <span class="price">5.90€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Φιλετάκια Τραγανό Κοτόπουλο</div>
+            <div class="item-desc">5 Φιλετάκια Τραγανό Κοτόπουλο +Sauce Μουστάρδας</div>
+            <span class="price">6.20€</span>
+          </div>
+        `;
+      }<!-- ΤΕΛΟΣ STARTERS -->
+
+<!-- Club Sandwiches -->
+
+  if (category === 'clubsandwiches') {
+        menu.innerHTML = `
+          <div class="item">
+            <div class="item-name">Classic  Club Sandwich</div>
+            <div class="item-desc">Ζαμπόν, Bacon, Tυρί Gouda, Mαρούλι, Nτομάτα,  Mαγιονέζα</div>
+            <span class="price">6.20€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Egg Club Sandwich</div>
+            <div class="item-desc">Ζαμπόν, Bacon,  Tυρί Gouda, Mαρούλι, Nτομάτα,  Smoky Mayo, Aυγό Βραστό</div>
+            <span class="price">6.50€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Chicken Club Sandwich</div>
+            <div class="item-desc">Ψητό Φιλέτο κοτόπουλο, Bacon, Mαρούλι, Nτομάτα, Sauce Μουστάρδας</div>
+            <span class="price">6.70€</span>
+          </div>
+         `;
+      } <!-- Club Sandwiches -->
+
+<!-- Τορτίγιες -->
+
+  if (category === 'tortigies') {
+        menu.innerHTML = `
+          <div class="item">
+            <div class="item-name">Τορτιγια με ψητο Κοτοπουλο</div>
+            <div class="item-desc">Ψητό Φιλέτο Κοτόπουλο, Mαρούλι, Nτομάτα, Mαγιονέζα</div>
+            <span class="price">4.40€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Τορτιγια με Τραγανο κοτοπουλο</div>
+            <div class="item-desc">Παναρισμένο Κοτόπουλο, Mαρούλι, Nτομάτα, Sauce Μουστάρδας</div>
+            <span class="price">4.70€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Τορτίγια Pulled Pork </div>
+            <div class="item-desc">Pulled Pork, Mαρούλι, Nτομάτα, Καρότο, Ταρτάρ Sauce</div>
+            <span class="price">4.70€</span>
           </div>
           <div class="item">
-            <div class="item-name">Cheese Bacon Dog</div>
-            <div class="item-desc">Λουκάνικο, cheddar, bacon</div>
-            <span class="price">4.5€</span>
-          </div>`;
-      }
+            <div class="item-name">Τορτιγια Κολοκυθοκεφτέδες</div>
+            <div class="item-desc">Κολοκυθοκεφτέδες, Mαρούλι, Nτομάτα, Κρεμμύδι, Chimichurri Mayo</div>
+            <span class="price">4.30€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Τορτιγια Ντοματοκεφτέδες</div>
+            <div class="item-desc">Ντοματοκεφτέδες, Πατατες,  Μαρούλι, Καρότο, Πίκλες, Vegan Mayo</div>
+            <span class="price">4.40€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Τορτιγια Ρεβυθοκεφτέδες</div>
+            <div class="item-desc">Ρεβυθοκεφτεδες, Μαρούλι, Ντομάτα, Αγγούρι, French Sauce</div>
+            <span class="price">4.30€</span>
+          </div>
+
+
+         `;
+      } <!-- ΤΕΛΟΣ Τορτίγιες -->
+
+
+<!-- Sandwiches -->
+
+  if (category === 'sandwiches') {
+        menu.innerHTML = `
+          <div class="item">
+            <div class="item-name">Sandwich με Τραγανό Κοτόπουλο</div>
+            <div class="item-desc">Τραγανό Φιλέτο Κοτόπουλο, Mαρούλι, Nτομάτα, Sauce Μουστάρδας</div>
+            <span class="price">4.70€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Sandwich Pansetaki </div>
+            <div class="item-desc">Χοιρινό πανσετάκι, Μαρούλι, Ντομάτα, Πιπεριές, Smoky Mayo</div>
+            <span class="price">4.50€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Beef Sandwich  </div>
+            <div class="item-desc">Χειροποίητο μπιφτέκι, Μαρούλι, Ντομάτα, Κρεμμύδι, French Sauce</div>
+            <span class="price">5.70€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Sandwich Κολοκυθοκεφτέδες</div>
+            <div class="item-desc">Κολοκυθοκεφτέδες, Mαρούλι, Nτομάτα, Κρεμμύδι, Chimichurri Mayo</div>
+            <span class="price">4.30€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Sandwich Ντοματοκεφτέδες</div>
+            <div class="item-desc">Ντοματοκεφτέδες, Πατατες,  Μαρούλι, Καρότο, Πίκλες, Vegan Mayo</div>
+            <span class="price">4.40€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Sandwich Ρεβυθοκεφτέδες</div>
+            <div class="item-desc">Ρεβυθοκεφτεδες, Μαρούλι, Ντομάτα, Αγγούρι, French Sauce</div>
+            <span class="price">4.30€</span>
+          </div>
+
+
+         `;
+      } <!-- ΤΕΛΟΣ Sandwiches -->
+
+
+<!-- Κυπριακές  Πίτες -->
+
+  if (category === 'pites') {
+        menu.innerHTML = `
+          <div class="item">
+            <div class="item-name">Κυπριακή πίτα  κοτόπουλο</div>
+            <div class="item-desc">Τραγανό Φιλέτο Κοτόπουλο,  Coleslaw,  Πατάτες, Μαγιονέζα </div>
+            <span class="price">5.10€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Κυπριακή πίτα Πανσετάκι</div>
+            <div class="item-desc">Χοιρινό Πανσετάκι, Mαρούλι, Nτομάτα, Πατάτες, Κρεμμύδι, Smoky Mayo </div>
+            <span class="price">5.10€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Κυπριακή πίτα Ντονερ</div>
+            <div class="item-desc">Ντονέρ, Mαρούλι, Nτομάτα, Κρεμμύδι Πατάτες, Sauce Μουστάρδας</div>
+            <span class="price">5.40€</span>
+          </div>
+    `;
+      } <!-- ΤΕΛΟΣ Κυπριακές  Πίτες -->
+
+<!-- ΣΑΛΑΤΕΣ -->
+
+  if (category === 'salads') {
+        menu.innerHTML = `
+          <div class="item">
+            <div class="item-name">Coleslaw</div>
+            <div class="item-desc">Λάχανο, Καρότο, Πιπεριές,  Coleslaw Sauce </div>
+            <span class="price">4.90€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Bam Salad</div>
+            <div class="item-desc">Iceberg, Μαρούλι, Nτομάτα, Αγγούρι, Πιπεριές, Bacon Trimmings, Aυγό βραστό, Tortilla Strips, French Sauce </div>
+            <span class="price">6.40€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Caesar's Salad</div>
+            <div class="item-desc">Iceberg, Μαρούλι, Ψητό Κοτόπουλο, Καλαμπόκι, Κρουτόν, Τριμμένη Παρμεζάνα, Caesar Sauce</div>
+            <span class="price">7.20€</span>
+          </div>
+    `;
+      } <!-- ΤΕΛΟΣ ΣΑΛΑΤΕΣ -->
+
+
+<!-- Kid's Menu-->
+
+  if (category === 'kidsmenu') {
+        menu.innerHTML = `
+          <div class="item">
+            <div class="item-name">Chicken Pop Corn Kid's Menu</div>
+            <div class="item-desc">Τραγανές μπουκίτσες Κοτόπουλο <br>
+                                   Πατάτες + Χυμός Amita Fun + Δώρο Έκπληξη </div>
+            <span class="price">6.20€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Beef Burger Kid's Menu</div>
+            <div class="item-desc">Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Mαγιονέζα <br>
+                                   Πατάτες + Χυμός Amita Fun + Δώρο Έκπληξη </div>
+            <span class="price">6.40€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Chicken Burger  Kid's Menu</div>
+            <div class="item-desc">Ψητό Φιλέτο Κοτόπουλο, Τυρί Cheddar, Mαγιονέζα<br>
+                                   Πατάτες + Χυμός Amita Fun + Δώρο Έκπληξη </div>
+            <span class="price">7.20€</span>
+          </div>
+        
+            <div class="item">
+            <div class="item-name">Hot dog  Kid's Menu</div>
+            <div class="item-desc">Λουκάνικο Φραγκφούρτης, Mαγιονέζα, Κέτσαπ, Μουστάρδα <br>
+                                   Πατάτες + Χυμός Amita Fun + Δώρο Έκπληξη </div>
+            <span class="price">6.20€</span>
+          </div>
+    `;
+      } <!-- ΤΕΛΟΣ Kid's Menu -->
+
+
+<!-- Sweets-->
+
+  if (category === 'sweets') {
+        menu.innerHTML = `
+          <div class="item">
+            <div class="item-name">Churros Classic </div>
+            <div class="item-desc">6 Churros με ζάχαρη και κανέλα </div>
+            <span class="price">3.30€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Churros Choco</div>
+            <div class="item-desc">6  Churros με Πραλίνα Σοκολάτα και Πολύχρωμη Τρούφα</div>
+            <span class="price">3.50€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Churros Vanilla</div>
+            <div class="item-desc">6 Churros με Πραλίνα Βανίλια και Τρούφα </div>
+            <span class="price">3.50€</span>
+          </div>
+
+                         `;
+                                } <!-- ΤΕΛΟΣ Sweets -->
+
+<!-- Sauces-->
+
+  if (category === 'sauces') {
+        menu.innerHTML = `
+          <div class="item">
+            <div class="item-name"> <span style="font-size:24px;"> Κέτσαπ</span></div>
+            <span class="price">40gr 0.50€</span><span class="price">100gr 0.70€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name"> <span style="font-size:24px;">Μουστάρδα</span></div>
+            <span class="price">40gr 0.50€</span><span class="price">100gr 0.70€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name"> <span style="font-size:24px;">Μαγιονέζα</span></div>
+            <span class="price">40gr 0.70€</span><span class="price">100gr 1.40€</span>
+          </div>
+         
+           <div class="item">
+            <div class="item-name"> <span style="font-size:24px;"> Vegan Mayo </span></div>
+            <span class="price">40gr 0.70€</span><span class="price">100gr 1.40€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name"> <span style="font-size:24px;"> BBQ Sauce </span></div>
+            <span class="price">40gr 0.70€</span><span class="price">100gr 1.40€</span>
+          </div>
+ 
+          <div class="item">
+            <div class="item-name"> <span style="font-size:24px;"> Sauce Μουστάρδας </span></div>
+            <span class="price">40gr 0.70€</span><span class="price">100gr 1.40€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name"> <span style="font-size:24px;"> French Sauce </span></div>
+            <span class="price">40gr 0.70€</span><span class="price">100gr 1.40€</span>
+          </div>
+
+         <div class="item">
+            <div class="item-name"> <span style="font-size:24px;"> Smoky Mayo </span></div>
+            <span class="price">40gr 0.70€</span><span class="price">100gr 1.40€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name"> <span style="font-size:24px;"> Ταρτάρ Sauce </span></div>
+            <span class="price">40gr 0.70€</span><span class="price">100gr 1.40€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name"> <span style="font-size:24px;"> Sweet chilli Mayo </span></div>
+            <span class="price">40gr 0.70€</span><span class="price">100gr 1.40€</span>
+          </div>
+
+           <div class="item">
+            <div class="item-name"> <span style="font-size:24px;"> Sweet chilli Sauce </span></div>
+            <span class="price">40gr 0.80€</span><span class="price">100gr 1.60€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name"> <span style="font-size:24px;"> Caesar Sauce </span></div>
+            <span class="price">40gr 0.80€</span><span class="price">100gr 1.60€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name"> <span style="font-size:24px;"> Chutney Πιπεριάς </span></div>
+            <span class="price">40gr 0,80€</span><span class="price">100gr 1.60€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name"> <span style="font-size:24px;"> Chimichurri Mayo </span></div>
+            <span class="price">40gr 0.80€</span><span class="price">100gr 1.60€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name"> <span style="font-size:24px;"> Roasted onion sauce </span></div>
+            <span class="price">40gr 0.90€</span><span class="price">100gr 1.70€</span>
+          </div>
+
+            <div class="item-name"> <span style="font-size:24px;"> Truffle Mayo </span></div>
+            <span class="price">40gr 0.90€</span><span class="price">100gr 1.70€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name"> <span style="font-size:24px;"> Cheddar Sauce </span></div>
+           <span class="price">100gr 1.70€</span>
+          </div>
+
+                         `;
+                                } <!-- ΤΕΛΟΣ Sauces -->
+
+
+
+
+
+
     }
+    window.onload = function () {
+      const baoBtn = document.getElementById('btn-bao');
+      showCategory('bao', baoBtn);
+    };
   </script>
+
+
 
 </body>
 </html>
