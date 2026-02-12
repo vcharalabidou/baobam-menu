@@ -90,26 +90,26 @@
     }
 
     .item-name {
-      font-size: 14px;
+      font-size: 20px;
       font-weight: bold;
       margin-bottom: 4px;
     }
 
     .item-desc {
-      font-size: 14px;
+      font-size: 17px;
       color: #ddd;
       margin-bottom: 6px;
     }
 
     /* ====== ΤΙΜΗ ====== */
     .price {
-      display: inline-block;
-      background: #ffcc00; /*   ΚΙΤΡΙΝΟ ΦΟΝΤΟ */
-      color: #000; /* ΜΑΥΡΗ ΤΙΜΗ */
-      padding: 4px 8px;
-      font-weight: bold;
-      transform: rotate(-1deg);
-      margin: 4px 6px 5px 0;
+          display: inline-block;
+          background: transparent;
+          color: #ffcc00 !important;        /* 👈 αναγκάζει το κίτρινο */
+          border: 2px solid #ffcc00 !important; /* 👈 αναγκάζει το περίγραμμα */
+          padding: 4px 14px;
+          font-weight: bold;
+           border-radius: 999px;
 
       /* Αναδίπλωση κειμένου (Double/Triple Smash κτλ) */
       max-width: 130px;
@@ -799,6 +799,7 @@
 
 </body>
 </html>
+
 
 
 
