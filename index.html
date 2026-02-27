@@ -134,7 +134,8 @@
 
   <!-- ΚΟΥΜΠΙΑ -->
   <div class="categories">
-    <button  id="btn-bao" class="category-btn" onclick="showCategory('bao', this)">Bao Buns</button>
+    <button  id="btn-nistisima" class="category-btn" onclick="showCategory('nistisima', this)">Νηστίσιμα</button>
+    <button class="category-btn" onclick="showCategory('bao', this)">Bao Buns</button>
     <button class="category-btn" onclick="showCategory('burgers', this)">Burgers</button>
     <button class="category-btn" onclick="showCategory('hotdogs', this)">Hot Dogs</button>
     <button class="category-btn" onclick="showCategory('starters', this)">Starters</button>
@@ -168,9 +169,57 @@
 
       menu.style.display = 'block';
 
+   <!-- ΝΗΣΤΙΣΙΜΑ -->
+      if (category === 'nistisima') {
+
+        menu.innerHTML = `
+          <div class="item">
+            <div class="item-name">ΓΑΡΙΔΕς Bao</div>
+            <div class="item-desc">Τραγανό Φιλέτο Κοτόπουλο, Μαρούλι, Καρότο, Sweet Chilli Mayo, Σουσάμι</div>
+            <span class="price">4.40€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">ΓΑΡΙΔΕς </div>
+            <div class="item-desc">Pulled pork, Μαρούλι, Καρότο, BBQ Sauce</div>
+            <span class="price">4.50€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">PanceΓΑΡΙΔΕς ao</div>
+            <div class="item-desc">Πανσέτακι χοιρινό, Μαρούλι, Κρεμμύδι, Smoky Mayo, Σουσάμι</div>
+            <span class="price">4.60€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">TruffΓΑΡΙΔΕς  Bun</div>
+            <div class="item-desc">Χειροποίητο μοσχαρίσιο Μπιφτέκι, Μαρούλι, Truffle Mayo, Crispy Onion</div>
+            <span class="price">5.20€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">RoastΓΑΡΙΔΕς Bao Bun</div>
+            <div class="item-desc">Χειροποίητο μοσχαρίσιο Μπιφτέκι, Μαρούλι, Ντομάτα, Roasted onion sauce</div>
+            <span class="price">5.20€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Bao Bun Γαρίδες</div>
+            <div class="item-desc">Τραγανές Γαρίδες, Μαρούλι, Ρόκα, Vegan Mayo, Sweet Chilli, Σουσάμι</div>
+            <span class="price">5.20€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Mushroom Bao Bun</div>
+            <div class="item-desc">Μανιτάρια, Ρόκα, Ψητές Πιπεριές, Chimichurri Mayo, Crispy Onion</div>
+            <span class="price">4.40€</span>
+          </div>
+        `;
+      }
+
+ <!-- BAO BUNS -->
       if (category === 'bao') {
 
-<!-- BAO BUNS -->
         menu.innerHTML = `
           <div class="item">
             <div class="item-name">Crunchy Chick Bao</div>
@@ -215,10 +264,10 @@
           </div>
         `;
       }
-
+     
+     <!-- BURGERS -->
       if (category === 'burgers') {
 
-<!-- BURGERS -->
         menu.innerHTML = `
           <div class="subcategory">Beef Burgers</div>
 
@@ -799,6 +848,7 @@
 
 </body>
 </html>
+
 
 
 
