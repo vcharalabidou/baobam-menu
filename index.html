@@ -134,8 +134,7 @@
 
   <!-- ΚΟΥΜΠΙΑ -->
   <div class="categories">
-    <button  id="btn-bao" class="category-btn" onclick="showCategory('nistisima', this)">Νηστίσιμα</button>
-    <button class="category-btn" onclick="showCategory('bao', this)">Bao Buns</button>
+    <button  id="btn-bao" class="category-btn" onclick="showCategory('bao', this)">Bao Buns</button>
     <button class="category-btn" onclick="showCategory('burgers', this)">Burgers</button>
     <button class="category-btn" onclick="showCategory('hotdogs', this)">Hot Dogs</button>
     <button class="category-btn" onclick="showCategory('starters', this)">Starters</button>
@@ -146,6 +145,7 @@
     <button class="category-btn" onclick="showCategory('salads', this)">Salads</button>
     <button class="category-btn" onclick="showCategory('kidsmenu', this)">Kid's Menu</button>
     <button class="category-btn" onclick="showCategory('sweets', this)">Sweets</button>
+    <button class="category-btn" onclick="showCategory('nistisima', this)">Νηστίσιμα</button>
     <button class="category-btn" onclick="showCategory('sauces', this)">Sauces</button>
   </div>
 
@@ -169,122 +169,7 @@
 
       menu.style.display = 'block';
 
-   <!-- ΝΗΣΤΙΣΙΜΑ -->
-      if (category === 'nistisima') {
-
-     menu.innerHTML = `
-        
-       <div class="subcategory">Bites & Sides</div>
-          <div class="item">
-            <div class="item-name">Onion Rings</div>
-            <div class="item-desc">10 τεμάχια τηγανητά κρεμμύδια* + BBQ Sauce</div>
-            <span class="price">3.60€</span>
-          </div>
-
-          <div class="item">
-            <div class="item-name">Κολοκυθοκεφτεδες</div>
-            <div class="item-desc">5 Τηγανητοί Κολοκυθοκεφτέδες + dip Chimichurri Mayo</div>
-            <span class="price">5.30€</span>
-          </div>
-          
-          <div class="item">
-            <div class="item-name">Ντοματοκεφτεδες</div>
-            <div class="item-desc">5 Τηγανητοί Ντοματοκεφτέδες + dip Vegan Mayo</div>
-            <span class="price">5.30€</span>
-          </div>
-
-            <div class="item">
-            <div class="item-name">Φαλάφελ</div>
-            <div class="item-desc">5 Τηγανητοί  Ρεβυθοκεφτέδες + dip French  Sauce</div>
-            <span class="price">5.30€</span>
-          </div>
-          
-          <div class="item">
-            <div class="item-name">Στικς καλαμαριου</div>
-            <div class="item-desc">  Στικς καλαμαριού <br> + Πατάτες της επιλογης σας <br> + dip Chimichurri Mayo</div>
-            <span class="price">Από 7.60€</span>
-          </div>
- 
-           <div class="item">
-            <div class="item-name">NUGGETS Γαρίδας</div>
-            <div class="item-desc">10 Τραγανά Nuggets γαρίδας <br> + Πατάτες της επιλογης σαs <br> + dip French Sauce</div>
-            <span class="price">Από 7.90€</span>
-          </div>
-          
-          <div class="item">
-            <div class="item-name">Γαρίδες Tempura</div>
-            <div class="item-desc">5 Παναρισμένες γαρίδες <br> + Πατάτες της επιλογης σαs <br> + dip French  Sauce</div>
-            <span class="price">Από 7.90€</span>
-          </div>
-          
-          <div class="subcategory">BAO BUNS</div>
-            <div class="item">
-            <div class="item-name">Bao Bun Γαρίδες</div>
-            <div class="item-desc">2 Τραγανές γαρίδες, Μαρούλι, Ρόκα, Vegan Mayo, Sweet Chilli Sauce, Σουσάμι</div>
-            <span class="price">5.20€</span>
-          </div>
-
-          <div class="item">
-            <div class="item-name">Mushroom Bao Bun</div>
-            <div class="item-desc">Μανιτάρια, Ρόκα, Ψητές Πιπεριές, Chimichurri  Mayo, Crispy Onion </div>
-            <span class="price">4.40€</span>
-          </div>
-
-       <div class="subcategory">BURGERS</div>
-          <div class="item">
-            <div class="item-name">Veggie Patty Burger</div>
-            <div class="item-desc">Μπιφτέκι λαχανικών, Μαρούλι, Ντομάτα, Πίκλες, Vegan Mayo</div>
-            <span class="price">4.50€</span>
-          </div>
-
-          <div class="item">
-            <div class="item-name">Burger Καλαμάρι</div>
-            <div class="item-desc">Στικς Καλαμαριού, Μαρούλι, Αγγούρι, Vegan Mayo, Chutney Πιπεριάς</div>
-            <span class="price">Regular 3.80€</span>
-            <span class="price">Large 5.60€</span>
-          </div>
-
-          <div class="item">
-            <div class="item-name">Γαριδοburger</div>
-            <div class="item-desc">Nuggets Γαρίδας, Μαρούλι, Πίκλες, Ντομάτα, French Sauce</div>
-            <span class="price">Regular 4.30€</span>
-            <span class="price">Large 5.70€</span>
-          </div>
-
-<div class="subcategory">Sandwiches & Τορτιγιες</div>
-          <div class="item">
-            <div class="item-name">Κολοκυθοκεφτέδες</div>
-            <div class="item-desc">Κολοκυθοκεφτέδες, Mαρούλι, Nτομάτα, Κρεμμύδι, Chimichurri Mayo</div>
-            <span class="price">4.30€</span>
-          </div>
-
-          <div class="item">
-            <div class="item-name">Ντοματοκεφτεδες</div>
-            <div class="item-desc">Ντοματοκεφτέδες, Πατατες,  Μαρούλι, Καρότο, Πίκλες, Vegan Mayo</div>
-            <span class="price">4.40€</span>
-          </div>
-          
-          <div class="item">
-            <div class="item-name">Φαλάφελ</div>
-            <div class="item-desc">Ρεβυθοκεφτέδες, Μαρούλι, Ντομάτα, Αγγούρι, French Sauce</div>
-            <span class="price">4.30€</span>
-          </div>
-
-<div class="subcategory">Salads</div>
-          <div class="item">
-            <div class="item-name">Coleslaw ΝΗΣΤΙΣΙΜΗ</div>
-            <div class="item-desc">Λάχανο, Καρότο, Πιπεριές,  Νηστίσιμη Coleslaw Sauce</div>
-            <span class="price">5.10€</span>
-          </div>
-
-          <div class="item">
-            <div class="item-name">Green mix</div>
-            <div class="item-desc">Μαρούλι, Άισμπεργκ, Ρόκα, Λάχανο, Καρότο, Αγγούρι, Ραπανάκι, Κάπαρη, Βινεγκρέτ Κίτρου  </div>
-            <span class="price">5.10€</span>
-          </div>
- 
-        `;
-      }
+  
 
  <!-- BAO BUNS -->
       if (category === 'bao') {
@@ -820,6 +705,123 @@
 
                          `;
                                 } <!-- ΤΕΛΟΣ Sweets -->
+
+     <!-- ΝΗΣΤΙΣΙΜΑ -->
+      if (category === 'nistisima') {
+
+     menu.innerHTML = `
+        
+       <div class="subcategory">Bites & Sides</div>
+          <div class="item">
+            <div class="item-name">Onion Rings</div>
+            <div class="item-desc">10 τεμάχια τηγανητά κρεμμύδια* + BBQ Sauce</div>
+            <span class="price">3.60€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Κολοκυθοκεφτεδες</div>
+            <div class="item-desc">5 Τηγανητοί Κολοκυθοκεφτέδες + dip Chimichurri Mayo</div>
+            <span class="price">5.30€</span>
+          </div>
+          
+          <div class="item">
+            <div class="item-name">Ντοματοκεφτεδες</div>
+            <div class="item-desc">5 Τηγανητοί Ντοματοκεφτέδες + dip Vegan Mayo</div>
+            <span class="price">5.30€</span>
+          </div>
+
+            <div class="item">
+            <div class="item-name">Φαλάφελ</div>
+            <div class="item-desc">5 Τηγανητοί  Ρεβυθοκεφτέδες + dip French  Sauce</div>
+            <span class="price">5.30€</span>
+          </div>
+          
+          <div class="item">
+            <div class="item-name">Στικς καλαμαριου</div>
+            <div class="item-desc">  Στικς καλαμαριού <br> + Πατάτες της επιλογης σας <br> + dip Chimichurri Mayo</div>
+            <span class="price">Από 7.60€</span>
+          </div>
+ 
+           <div class="item">
+            <div class="item-name">NUGGETS Γαρίδας</div>
+            <div class="item-desc">10 Τραγανά Nuggets γαρίδας <br> + Πατάτες της επιλογης σαs <br> + dip French Sauce</div>
+            <span class="price">Από 7.90€</span>
+          </div>
+          
+          <div class="item">
+            <div class="item-name">Γαρίδες Tempura</div>
+            <div class="item-desc">5 Παναρισμένες γαρίδες <br> + Πατάτες της επιλογης σαs <br> + dip French  Sauce</div>
+            <span class="price">Από 7.90€</span>
+          </div>
+          
+          <div class="subcategory">BAO BUNS</div>
+            <div class="item">
+            <div class="item-name">Bao Bun Γαρίδες</div>
+            <div class="item-desc">2 Τραγανές γαρίδες, Μαρούλι, Ρόκα, Vegan Mayo, Sweet Chilli Sauce, Σουσάμι</div>
+            <span class="price">5.20€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Mushroom Bao Bun</div>
+            <div class="item-desc">Μανιτάρια, Ρόκα, Ψητές Πιπεριές, Chimichurri  Mayo, Crispy Onion </div>
+            <span class="price">4.40€</span>
+          </div>
+
+       <div class="subcategory">BURGERS</div>
+          <div class="item">
+            <div class="item-name">Veggie Patty Burger</div>
+            <div class="item-desc">Μπιφτέκι λαχανικών, Μαρούλι, Ντομάτα, Πίκλες, Vegan Mayo</div>
+            <span class="price">4.50€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Burger Καλαμάρι</div>
+            <div class="item-desc">Στικς Καλαμαριού, Μαρούλι, Αγγούρι, Vegan Mayo, Chutney Πιπεριάς</div>
+            <span class="price">Regular 3.80€</span>
+            <span class="price">Large 5.60€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Γαριδοburger</div>
+            <div class="item-desc">Nuggets Γαρίδας, Μαρούλι, Πίκλες, Ντομάτα, French Sauce</div>
+            <span class="price">Regular 4.30€</span>
+            <span class="price">Large 5.70€</span>
+          </div>
+
+<div class="subcategory">Sandwiches & Τορτιγιες</div>
+          <div class="item">
+            <div class="item-name">Κολοκυθοκεφτέδες</div>
+            <div class="item-desc">Κολοκυθοκεφτέδες, Mαρούλι, Nτομάτα, Κρεμμύδι, Chimichurri Mayo</div>
+            <span class="price">4.30€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Ντοματοκεφτεδες</div>
+            <div class="item-desc">Ντοματοκεφτέδες, Πατατες,  Μαρούλι, Καρότο, Πίκλες, Vegan Mayo</div>
+            <span class="price">4.40€</span>
+          </div>
+          
+          <div class="item">
+            <div class="item-name">Φαλάφελ</div>
+            <div class="item-desc">Ρεβυθοκεφτέδες, Μαρούλι, Ντομάτα, Αγγούρι, French Sauce</div>
+            <span class="price">4.30€</span>
+          </div>
+
+<div class="subcategory">Salads</div>
+          <div class="item">
+            <div class="item-name">Coleslaw ΝΗΣΤΙΣΙΜΗ</div>
+            <div class="item-desc">Λάχανο, Καρότο, Πιπεριές,  Νηστίσιμη Coleslaw Sauce</div>
+            <span class="price">5.10€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name">Green mix</div>
+            <div class="item-desc">Μαρούλι, Άισμπεργκ, Ρόκα, Λάχανο, Καρότο, Αγγούρι, Ραπανάκι, Κάπαρη, Βινεγκρέτ Κίτρου  </div>
+            <span class="price">5.10€</span>
+          </div>
+ 
+        `;
+      }  <!-- ΤΕΛΟΣ Νηστίσιμα -->
 
 <!-- Sauces-->
 
