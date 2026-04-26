@@ -149,7 +149,7 @@
     <button class="category-btn" onclick="showCategory('sauces', this)">Sauces</button>
   </div>
 
-  <!-- ΜΕΝΟΥ -->
+  // ΜΕΝΟΥ 
   <div id="menu"></div>
 
   <script>
@@ -171,7 +171,7 @@
 
   
 
- <!-- BAO BUNS -->
+ //BAO BUNS 
       if (category === 'bao') {
 
         menu.innerHTML = `
@@ -219,7 +219,7 @@
         `;
       }
      
-     <!-- BURGERS -->
+     // BURGERS 
       if (category === 'burgers') {
 
         menu.innerHTML = `
@@ -371,7 +371,7 @@
         `;
       }
 
-<!-- HOT DOGS -->
+// HOT DOGS 
       if (category === 'hotdogs') {
        menu.innerHTML = `
           <div class="item">
@@ -419,7 +419,7 @@
       }
  
 
-<!-- STARTERS -->
+//STARTERS 
   if (category === 'starters') {
         menu.innerHTML = `
           <div class="item">
@@ -482,9 +482,9 @@
             <span class="price">6.20€</span>
           </div>
         `;
-      }<!-- ΤΕΛΟΣ STARTERS -->
+      } // ΤΕΛΟΣ STARTERS -->
 
-<!-- Club Sandwiches -->
+// Club Sandwiches 
 
   if (category === 'clubsandwiches') {
         menu.innerHTML = `
@@ -508,7 +508,7 @@
          `;
       } <!-- Club Sandwiches -->
 
-<!-- Τορτίγιες -->
+// Τορτίγιες
 
   if (category === 'tortigies') {
         menu.innerHTML = `
@@ -549,10 +549,10 @@
 
 
          `;
-      } <!-- ΤΕΛΟΣ Τορτίγιες -->
+      } // ΤΕΛΟΣ Τορτίγιες
 
 
-<!-- Sandwiches -->
+// Sandwiches 
 
   if (category === 'sandwiches') {
         menu.innerHTML = `
@@ -594,10 +594,10 @@
 
 
          `;
-      } <!-- ΤΕΛΟΣ Sandwiches -->
+      } //ΤΕΛΟΣ Sandwiches 
 
 
-<!-- Κυπριακές  Πίτες -->
+// Κυπριακές  Πίτες 
 
   if (category === 'pites') {
         menu.innerHTML = `
@@ -619,9 +619,9 @@
             <span class="price">5.40€</span>
           </div>
     `;
-      } <!-- ΤΕΛΟΣ Κυπριακές  Πίτες -->
+      } //ΤΕΛΟΣ Κυπριακές  Πίτες -->
 
-<!-- ΣΑΛΑΤΕΣ -->
+// ΣΑΛΑΤΕΣ -->
 
   if (category === 'salads') {
         menu.innerHTML = `
@@ -643,7 +643,7 @@
             <span class="price">7.20€</span>
           </div>
     `;
-      } <!-- ΤΕΛΟΣ ΣΑΛΑΤΕΣ -->
+      } // ΤΕΛΟΣ ΣΑΛΑΤΕΣ 
 
 
 <!-- Kid's Menu-->
@@ -678,7 +678,7 @@
             <span class="price">6.20€</span>
           </div>
     `;
-      } <!-- ΤΕΛΟΣ Kid's Menu -->
+      } //ΤΕΛΟΣ Kid's Menu 
 
 
 <!-- Sweets-->
@@ -704,7 +704,7 @@
           </div>
 
                          `;
-                                } <!-- ΤΕΛΟΣ Sweets -->
+                                } //ΤΕΛΟΣ Sweets 
 
      <!-- ΝΗΣΤΙΣΙΜΑ -->
       if (category === 'nistisima') {
@@ -821,7 +821,7 @@
           </div>
  
         `;
-      }  <!-- ΤΕΛΟΣ Νηστίσιμα -->
+      } //ΤΕΛΟΣ Νηστίσιμα 
 
 <!-- Sauces-->
 
@@ -912,12 +912,12 @@
           </div>
 
                          `;
-                                } <!-- ΤΕΛΟΣ Sauces -->
+                                } //ΤΕΛΟΣ Sauces
 
     }
     window.onload = function () {
       const baoBtn = document.getElementById('btn-bao');
-      showCategory('nistisima', baoBtn);
+      showCategory('bao', baoBtn);
     };
   </script>
 
