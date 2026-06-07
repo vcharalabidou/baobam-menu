@@ -120,19 +120,47 @@
     .prices {
       margin-top: 6px;
     }
+
+ /* == star speech bubble == */
+      .badge-star { 
+  position: absolute;
+  top: -15px;
+  right: -5px;
+  width: 70px;
+  height: 70px;
+  background: #ffcc00;
+  color: #000;
+  font-size: 10px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  clip-path: polygon(
+    50% 0%, 61% 20%, 82% 8%, 74% 30%,
+    100% 35%, 78% 50%, 100% 65%, 74% 70%,
+    82% 92%, 61% 80%, 50% 100%, 39% 80%,
+    18% 92%, 26% 70%, 0% 65%, 22% 50%,
+    0% 35%, 26% 30%, 18% 8%, 39% 20%
+  );
+
+  transform: rotate(15deg);
+}
   </style>
+
 </head>
 <body>
 
 
 
-  <!-- ΠΡΟΣΟΧΗ: το όνομα ΠΡΕΠΕΙ να είναι ΑΚΡΙΒΩΣ ίδιο -->
-  <!-- Αν ΔΕΝ εμφανίζεται, δοκίμασε ΜΙΚΡΑ γράμματα παντού -->
+// ΠΡΟΣΟΧΗ: το όνομα ΠΡΕΠΕΙ να είναι ΑΚΡΙΒΩΣ ίδιο 
+ // Αν ΔΕΝ εμφανίζεται, δοκίμασε ΜΙΚΡΑ γράμματα παντού 
   <img id="logo" src="./baobam_white.png" alt="Bao Bam Logo" />
 
   <h1>DELIVERY MENU</h1>
 
-  <!-- ΚΟΥΜΠΙΑ -->
+  // ΚΟΥΜΠΙΑ -->
   <div class="categories">
     <button  id="btn-bao" class="category-btn" onclick="showCategory('bao', this)">Bao Buns</button>
     <button class="category-btn" onclick="showCategory('burgers', this)">Burgers</button>
@@ -235,6 +263,7 @@ margin-bottom:15px;
           <div class="subcategory">Beef Burgers</div>
 
           <div class="item">
+           <div class="badge-star"> BEST<br>SELLER  </div>
             <div class="item-name">BAM Classic</div>
             <div class="item-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Πίκλες, Bacon, Smoky Mayo</div>
             <div class="prices">
