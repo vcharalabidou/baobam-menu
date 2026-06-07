@@ -122,30 +122,29 @@
     }
 
  /* == star speech bubble == */
-     .badge-star {
+   .bubble{
   position: absolute;
-  top: -15px;
-  right: -5px;
-  width: 70px;
-  height: 70px;
-  background: #ffcc00;
-  color: #000;
-  font-size: 10px;
+  top: 10px;
+  left: 10px;
+  background: white;
+  color: black;
+  padding: 6px 10px;
+  font-size: 11px;
   font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  border-radius: 12px;
+  position: absolute;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
 
-  clip-path: polygon(
-    50% 0%, 61% 20%, 82% 8%, 74% 30%,
-    100% 35%, 78% 50%, 100% 65%, 74% 70%,
-    82% 92%, 61% 80%, 50% 100%, 39% 80%,
-    18% 92%, 26% 70%, 0% 65%, 22% 50%,
-    0% 35%, 26% 30%, 18% 8%, 39% 20%
-  );
-
-  transform: rotate(15deg);
+.bubble::after{
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 12px;
+  width: 12px;
+  height: 12px;
+  background: white;
+  transform: rotate(45deg);
 }
   </style>
 
@@ -262,10 +261,7 @@ margin-bottom:15px;
         menu.innerHTML = `
           <div class="subcategory">Beef Burgers</div>
 
-          <div class="item">
-            <div class="badge-star">
-    BEST<br>SELLER
-  </div>
+         <div class="bubble">BEST SELLER</div>
             <div class="item-name">BAM Classic</div>
             <div class="item-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Πίκλες, Bacon, Smoky Mayo</div>
             <div class="prices">
