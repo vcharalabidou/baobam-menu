@@ -30,16 +30,73 @@
 
     /* ====== ΚΟΥΜΠΑΚΙΑ ΚΑΤΗΓΟΡΙΩΝ ====== */
    
+.category-scroll {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 920px;
+  margin: 0 auto 30px;
+  padding: 0 44px;
+}
+
 .categories {
-  margin-bottom: 30px;
+  flex: 1;
   overflow-x: auto;
   white-space: nowrap;   /* 👈 όλα σε μία σειρά */
   padding: 10px 15px;
   scrollbar-width: none;
+  scroll-behavior: smooth;
+  cursor: grab;
 }
 
 .categories::-webkit-scrollbar {
   display: none;
+}
+
+.categories.dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+}
+
+.category-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  width: 34px;
+  height: 34px;
+  border: 2px solid #e60000;
+  border-radius: 50%;
+  background: #e60000;
+  color: #fff;
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.category-arrow.left {
+  left: 6px;
+  transform: translateY(-50%);
+}
+
+.category-arrow.right {
+  right: 6px;
+  transform: translateY(-50%);
+}
+
+.category-arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+@media (max-width: 520px) {
+  .category-scroll {
+    padding: 0;
+  }
+
+  .category-arrow {
+    display: none;
+  }
 }
 
 
@@ -95,6 +152,79 @@
       margin-bottom: 4px;
     }
 
+    .item-title {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .item-title .item-name {
+      margin-bottom: 0;
+    }
+
+    .menu-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      width: 78px;
+      height: 58px;
+      padding: 8px 10px;
+      background: transparent;
+      color: #050505;
+      font-size: 10px;
+      font-weight: 900;
+      line-height: 1;
+      text-align: center;
+      text-transform: uppercase;
+      transform: rotate(-4deg);
+    }
+
+    .menu-badge::before,
+    .menu-badge::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      clip-path: polygon(50% 0%, 58% 19%, 77% 7%, 75% 29%, 98% 31%, 81% 46%, 96% 63%, 73% 66%, 81% 90%, 59% 80%, 50% 100%, 41% 80%, 19% 90%, 27% 66%, 4% 63%, 19% 46%, 2% 31%, 25% 29%, 23% 7%, 42% 19%);
+    }
+
+    .menu-badge::before {
+      background: #ff2a00;
+      z-index: 0;
+    }
+
+    .menu-badge::after {
+      background: #ffd51d;
+      inset: 6px;
+      z-index: 1;
+    }
+
+    .menu-badge > * {
+      position: relative;
+      z-index: 2;
+      transform: translateY(-2px);
+    }
+
+    .menu-badge.hot {
+      width: 102px;
+      height: 62px;
+      gap: 0;
+    }
+
+    .menu-badge .badge-icon {
+      font-size: 20px;
+      line-height: 1;
+      margin-right: -1px;
+    }
+
+    .menu-badge .badge-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
     .item-desc {
       font-size: 17px;
       color: #ddd;
@@ -137,7 +267,9 @@
   <h1>DELIVERY MENU</h1>
 
  <!-- ΚΟΥΜΠΙΑ -->
-  <div class="categories">
+  <div class="category-scroll">
+    <button class="category-arrow left" type="button" onclick="scrollCategories(-1)" aria-label="Προηγούμενες κατηγορίες">‹</button>
+    <div class="categories" id="categories">
     <button  id="btn-bao" class="category-btn" onclick="showCategory('bao', this)">Bao Buns</button>
     <button class="category-btn" onclick="showCategory('burgers', this)">Burgers</button>
     <button class="category-btn" onclick="showCategory('hotdogs', this)">Hot Dogs</button>
@@ -152,6 +284,8 @@
     <button class="category-btn" onclick="showCategory('nistisima', this)">Νηστίσιμα</button>
     <button class="category-btn" onclick="showCategory('sauces', this)">Sauces</button>
     <button class="category-btn" onclick="showCategory('drinks', this)">Drinks</button>
+    </div>
+    <button class="category-arrow right" type="button" onclick="scrollCategories(1)" aria-label="Επόμενες κατηγορίες">›</button>
   </div>
 
   <div style="
@@ -168,6 +302,73 @@ margin-bottom:15px;
   <script>
     const menu = document.getElementById('menu');
     const buttons = document.querySelectorAll('.category-btn');
+    const categories = document.getElementById('categories');
+    const categoryLeftArrow = document.querySelector('.category-arrow.left');
+    const categoryRightArrow = document.querySelector('.category-arrow.right');
+
+    function updateCategoryArrows() {
+      if (!categories || !categoryLeftArrow || !categoryRightArrow) return;
+
+      const maxScroll = categories.scrollWidth - categories.clientWidth;
+      categoryLeftArrow.disabled = categories.scrollLeft <= 2;
+      categoryRightArrow.disabled = categories.scrollLeft >= maxScroll - 2;
+    }
+
+    function scrollCategories(direction) {
+      if (!categories) return;
+
+      categories.scrollBy({
+        left: direction * Math.round(categories.clientWidth * 0.75),
+        behavior: 'smooth'
+      });
+
+      setTimeout(updateCategoryArrows, 350);
+    }
+
+    if (categories) {
+      let isDraggingCategories = false;
+      let dragStartX = 0;
+      let dragStartScroll = 0;
+
+      categories.addEventListener('scroll', updateCategoryArrows);
+
+      categories.addEventListener('wheel', function (event) {
+        if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+
+        event.preventDefault();
+        categories.scrollLeft += event.deltaY;
+      }, { passive: false });
+
+      categories.addEventListener('pointerdown', function (event) {
+        if (event.target.closest('.category-btn')) return;
+
+        isDraggingCategories = true;
+        dragStartX = event.clientX;
+        dragStartScroll = categories.scrollLeft;
+        categories.classList.add('dragging');
+        categories.setPointerCapture(event.pointerId);
+      });
+
+      categories.addEventListener('pointermove', function (event) {
+        if (!isDraggingCategories) return;
+        categories.scrollLeft = dragStartScroll - (event.clientX - dragStartX);
+      });
+
+      categories.addEventListener('pointerup', function (event) {
+        if (!isDraggingCategories) return;
+
+        isDraggingCategories = false;
+        categories.classList.remove('dragging');
+        categories.releasePointerCapture(event.pointerId);
+      });
+
+      categories.addEventListener('pointercancel', function () {
+        isDraggingCategories = false;
+        categories.classList.remove('dragging');
+      });
+
+      window.addEventListener('resize', updateCategoryArrows);
+    }
 
     function resetButtons() {
       buttons.forEach(btn => btn.classList.remove('active'));
@@ -240,7 +441,13 @@ margin-bottom:15px;
 
         <div class="item">
         
-            <div class="item-name">BAM Classic</div>
+            <div class="item-title">
+              <div class="item-name">BAM Classic</div>
+              <span class="menu-badge hot">
+              <span class="badge-icon">&#128293;</span>
+              <span class="badge-text"><span>Best</span><span>Seller</span></span>
+              </span>
+                          </div>
            
               <div class="item-desc">Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Πίκλες, Bacon, Smoky Mayo</div>
             <div class="prices">
@@ -737,12 +944,17 @@ margin-bottom:15px;
             <span class="price">3.50€</span>
           </div>
           
-         <div class="item" style="position:relative;">
         
-            <div class="item-name">Churros Bueno</div>
+        
+            <div class="item">
+            <div class="item-title">
+              <div class="item-name">Churros Bueno</div>
+              <span class="menu-badge"><span>New</span></span>
+            </div>
             <div class="item-desc">6 Churros με Πραλίνα Bueno και Τρούφα </div>
             <span class="price">3.70€</span>
           </div>
+         
           
           <div class="item">
             <div class="item-name">Churros Vanilla</div>
@@ -751,18 +963,27 @@ margin-bottom:15px;
           </div>
 
           <div class="subcategory">Παγωτά</div>
-          
-           <div class="item">
-            <div class="item-name">Παγωτό Banoffee</div>
-            <div class="item-desc">Παγωτό PROVIO κυπελάκι 200ml</div>
+
+
+            <div class="item">
+            <div class="item-title">
+              <div class="item-name">Παγωτό Banoffee</div>
+              <span class="menu-badge"><span>New</span></span>
+            </div>
+            <div class="item-desc">Παγωτό PROVIO κυπελάκι 200ml </div>
             <span class="price">3.80€</span>
           </div>
           
-          <div class="item">
-            <div class="item-name">Παγωτό Cheesecake</div>
-            <div class="item-desc">Παγωτό  PROVIO  premium  κυπελάκι 200ml </div>
+            <div class="item">
+            <div class="item-title">
+              <div class="item-name">Παγωτό Cheesecake</div>
+              <span class="menu-badge"><span>New</span></span>
+            </div>
+            <div class="item-desc">Παγωτό  PROVIO  premium  κυπελάκι 200ml  </div>
             <span class="price">4.50€</span>
           </div>
+          
+         
                          `;
                                 } //ΤΕΛΟΣ Sweets 
 
@@ -981,176 +1202,182 @@ margin-bottom:15px;
         
        <div class="subcategory">Αναψυκτικά</div>
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Coca Cola 330ml</div>
+            <div class="item-name"> <span style="font-size:24px;"> Coca Cola 330ml </span></div>
             <span class="price">1.90€</span>
           </div>
 
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Coca Cola Zero 330ml</div>
-            <span class="price">1.90€</span>
-          </div>
-          
-          <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Coca Cola Light 330ml</div>
-            <span class="price">1.90€</span>
-          </div>
-
-          <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Coca Cola Zero Caffeine Free 330ml</div>
-            <span class="price">2.20€</span>
-          </div>
-
-          <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Coca Cola Stevia 330ml</div>
-            <span class="price">2.20€</span>
-          </div>
-
-          <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Sprite 330ml</div>
+            <div class="item-name"> <span style="font-size:24px;"> Coca Cola Zero 330ml </span></div>
             <span class="price">1.90€</span>
           </div>
           
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Fanta Κόκκινη 330ml</div>
+            <div class="item-name"> <span style="font-size:24px;"> Coca Cola Light 330ml </span></div>
+            <span class="price">1.90€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name"> <span style="font-size:24px;"> Coca Cola Zero Caffeine Free 330ml </span></div>
+            <span class="price">2.20€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name"> <span style="font-size:24px;"> Coca Cola Stevia 330ml </span></div>
+            <span class="price">2.20€</span>
+          </div>
+
+          <div class="item">
+            <div class="item-name"> <span style="font-size:24px;"> Sprite 330ml </span></div>
+            <span class="price">1.90€</span>
+          </div>
+          
+          <div class="item">
+            <div class="item-name"> <span style="font-size:24px;"> Fanta Κόκκινη 330ml </span></div>
             <span class="price">1.90€</span>
           </div>
  
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Fanta Μπλε</div>
+            <div class="item-name"> <span style="font-size:24px;"> Fanta Μπλε </span></div>
             <span class="price">1.90€</span>
           </div>
           
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Fanta Λεμόνι</div>
+            <div class="item-name"> <span style="font-size:24px;"> Fanta Λεμόνι </span></div>
             <span class="price">1.90€</span>
           </div>
 
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Schweppes Soda 330ml</div>
+            <div class="item-name"> <span style="font-size:24px;"> Schweppes Soda 330ml </span></div>
             <span class="price">1.90€</span>
           </div>
 
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Schweppes Πορτοκάλι 330ml</div>
+            <div class="item-name"> <span style="font-size:24px;"> Schweppes Πορτοκάλι 330ml </span></div>
             <span class="price">1.90€</span>
           </div>
 
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Schweppes Λεμόνι-Περγαμόντο 330ml</div>
+            <div class="item-name"> <span style="font-size:24px;"> Schweppes Λεμόνι-Περγαμόντο 330ml </span></div>
             <span class="price">1.90€</span>
           </div>
 
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Schweppes Λεμόνι 330ml</div>
+            <div class="item-name"> <span style="font-size:24px;"> Schweppes Λεμόνι 330ml </span></div>
             <span class="price">1.90€</span>
           </div>
 
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Coca Cola 500ml</div>
+            <div class="item-name"> <span style="font-size:24px;"> Coca Cola 500ml </span></div>
             <span class="price">2.30€</span>
           </div>
 
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Coca Cola Zero 500ml</div>
+            <div class="item-name"> <span style="font-size:24px;"> Coca Cola Zero 500ml </span></div>
             <span class="price">2.30€</span>
           </div>
 
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Fuze Tea Λεμόνι-Λουίζα 500ml</div>
+            <div class="item-name"> <span style="font-size:24px;"> Fuze Tea Λεμόνι-Λουίζα 500ml </span></div>
             <span class="price">2.50€</span>
           </div>
 
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Fuze Tea Ροδάκινο-Ιβίσκος 500ml</div>
+            <div class="item-name"> <span style="font-size:24px;"> Fuze Tea Ροδάκινο-Ιβίσκος 500ml </span></div>
             <span class="price">2.50€</span>
           </div>
           
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Coca Cola 1.5l</div>
+            <div class="item-name"> <span style="font-size:24px;"> Coca Cola 1.5l </span></div>
             <span class="price">3.20€</span>
           </div>
 
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Coca Cola Zero 1.5l</div>
+            <div class="item-name"> <span style="font-size:24px;"> Coca Cola Zero 1.5l </span></div>
             <span class="price">3.20€</span>
           </div>
           
+
         <div class="subcategory">Ενεργειακά Ποτά</div>
+
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Hell Classic</div>
+            <div class="item-title">
+              <div class="item-name"> <span style="font-size:24px;"> Hell Classic</span></div>
+              <span class="menu-badge"><span>New</span></span>
+            </div>
             <span class="price">1.60€</span>
           </div>
 
+
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Monster Energy 0.5l</div>
+            <div class="item-name"> <span style="font-size:24px;"> Monster Energy 0.5l </span></div>
             <span class="price">2.70€</span>
           </div>
 
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Monster Ultra Zero 0.5l</div>
+            <div class="item-name"> <span style="font-size:24px;"> Monster Ultra Zero 0.5l </span></div>
             <span class="price">2.70€</span>
           </div>
 
         <div class="subcategory">  Χυμοί</div>
           <div class="item">
-            <div class="item-name">Amita Motion 330ml</div>
+            <div class="item-name">Amita Motion 330ml </span></div>
             <span class="price">2.30€</span>
           </div>
 
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Amita Motion 330ml</div>
+            <div class="item-name"> <span style="font-size:24px;"> Amita Motion 330ml </span></div>
             <span class="price">2.30€</span>
           </div>
 
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Amita Fun Κόκκινη</div>
+            <div class="item-name"> <span style="font-size:24px;"> Amita Fun Κόκκινη </span></div>
             <span class="price">1.60€</span>
           </div>
 
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Amita Fun Μπλε</div>
+            <div class="item-name"> <span style="font-size:24px;"> Amita Fun Μπλε </span></div>
             <span class="price">1.60€</span>
           </div>
 
         <div class="subcategory">Νερά</div>
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Νερό 0.5l</div>
+            <div class="item-name"> <span style="font-size:24px;"> Νερό 0.5l </span></div>
             <span class="price">0.50€</span>
           </div>
 
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Νερό 1.5l</div>
+            <div class="item-name"> <span style="font-size:24px;"> Νερό 1.5l </span></div>
             <span class="price">1.20€</span>
           </div>
 
         <div class="subcategory">Ποτά</div>
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Αλφα 330ml</div>
+            <div class="item-name"> <span style="font-size:24px;"> Αλφα 330ml </span></div>
             <span class="price">2.30€</span>
           </div>
 
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Αλφα Free 330ml</div>
+            <div class="item-name"> <span style="font-size:24px;"> Αλφα Free 330ml </span></div>
             <span class="price">2.30€</span>
           </div>
 
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Amstel 330ml</div>
+            <div class="item-name"> <span style="font-size:24px;"> Amstel 330ml </span></div>
             <span class="price">2.30€</span>
           </div>
 
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Οίνος Ερυθρός Ξηρός Oval 187ml</div>
+            <div class="item-name"> <span style="font-size:24px;"> Οίνος Ερυθρός Ξηρός Oval 187ml </span></div>
             <span class="price">3.90€</span>
           </div>
 
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Οίνος Λευκός Ξηρός Oval 187ml</div>
+            <div class="item-name"> <span style="font-size:24px;"> Οίνος Λευκός Ξηρός Oval 187ml </span></div>
             <span class="price">3.90€</span>
           </div>
 
           <div class="item">
-            <div class="item-name"> <span style="font-size:24px;"> Οίνος Ροζέ Ημίγλυκος Oval 187ml</div>
+            <div class="item-name"> <span style="font-size:24px;"> Οίνος Ροζέ Ημίγλυκος Oval 187ml </span></div>
             <span class="price">3.90€</span>
           </div>
 
@@ -1162,6 +1389,7 @@ margin-bottom:15px;
     window.onload = function () {
       const baoBtn = document.getElementById('btn-bao');
       showCategory('bao', baoBtn);
+      updateCategoryArrows();
     };
   </script>
 
