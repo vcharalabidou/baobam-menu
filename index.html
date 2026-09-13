@@ -245,14 +245,48 @@
       max-width: 130px;
       white-space: normal;
       line-height: 1.5;
-    }
      */
+    }
     .prices {
       margin-top: 6px;
     }
 
 
   
+  
+    .language-toggle {
+      display: inline-flex;
+      gap: 10px;
+      margin: -12px 0 22px;
+    }
+
+    .language-btn {
+      position: relative;
+      background: #fff;
+      color: #e60000;
+      border: 2px solid #e60000;
+      border-radius: 999px;
+      padding: 10px 22px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .language-btn.active {
+      background: #e60000;
+      color: #fff;
+    }
+
+    .language-btn.active::before {
+      content: "•";
+      margin-right: 6px;
+    }
+
+    .language-btn:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: 3px;
+      box-shadow: 0 0 0 5px #e60000;
+    }
   </style>
 
 </head>
@@ -265,6 +299,10 @@
   <img id="logo" src="./baobam_white.png" alt="Bao Bam Logo" />
 
   <h1>DELIVERY MENU</h1>
+  <div class="language-toggle" role="group" aria-label="Επιλογή γλώσσας / Choose language">
+    <button class="language-btn active" type="button" data-lang="el" aria-pressed="true" onclick="switchLanguage('el')">EL</button>
+    <button class="language-btn" type="button" data-lang="en" aria-pressed="false" onclick="switchLanguage('en')">EN</button>
+  </div>
 
  <!-- ΚΟΥΜΠΙΑ -->
   <div class="category-scroll">
@@ -288,7 +326,7 @@
     <button class="category-arrow right" type="button" onclick="scrollCategories(1)" aria-label="Επόμενες κατηγορίες">›</button>
   </div>
 
-  <div style="
+  <div id="scroll-hint" style="
 color:#fff;
 font-size:13px;
 margin-top:-15px;
@@ -299,6 +337,8 @@ margin-bottom:15px;
  
   <div id="menu"></div>
 
+  <script src="translations.js"></script>
+  <script src="i18n.js"></script>
   <script>
     const menu = document.getElementById('menu');
     const buttons = document.querySelectorAll('.category-btn');
@@ -1134,7 +1174,7 @@ margin-bottom:15px;
 
           <div class="item">
             <div class="item-name">Green mix</div>
-            <div class="item-desc">Iceberg, Λάχανο, Καρότο, Αγγούρι, Κάπαρη, Βινεγκρέτ Κίτρου  </div>
+            <div class="item-desc">Iceberg, Λάχανο, Καρότο, Αγγούρι, Ραπανάκι, Κάπαρη, Βινεγκρέτ Κίτρου  </div>
             <span class="price">5.10€</span>
           </div>
  
@@ -1407,6 +1447,8 @@ margin-bottom:15px;
            
         `;
       } //ΤΕΛΟΣ drinks
+
+      applyMenuLanguage();
 
     }
     window.onload = function () {
