@@ -343,6 +343,19 @@
     /* Φωτογραφίες ποτών: ολόκληρη η συσκευασία σε μικρό τετράγωνο πλαίσιο. */
     .item-photo.drink-photo { width: 110px; max-width: 30%; aspect-ratio: 1; object-fit: contain; background: #fff; }
     @media (max-width: 520px) { .item-photo.drink-photo { width: 90px; } }
+
+    .photo-preview { position: relative; padding: 0; border: 0; background: transparent; cursor: zoom-in; overflow: hidden; }
+    .photo-preview img { display: block; width: 100%; height: auto; }
+    .photo-preview.drink-photo img { height: 100%; object-fit: contain; }
+    .photo-preview span { position: absolute; right: 6px; bottom: 6px; color: #fff; background: #000b; border-radius: 50%; width: 26px; height: 26px; line-height: 26px; font-size: 22px; }
+    .photo-preview:focus-visible { outline: 3px solid #e56b20; outline-offset: 4px; }
+    .photo-dialog { padding: 0; border: 0; border-radius: 14px; background: #171717; color: #fff; width: min(640px, calc(100vw - 32px)); max-width: none; max-height: calc(100dvh - 32px); overflow: auto; }
+    .photo-dialog::backdrop { background: rgb(0 0 0 / 82%); }
+    .photo-dialog img { display: block; width: 100%; height: auto; max-height: calc(100dvh - 120px); object-fit: contain; }
+    .photo-dialog header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 14px; }
+    .photo-dialog h2 { margin: 0; font-size: 18px; }
+    .photo-dialog button { border: 0; border-radius: 50%; width: 44px; height: 44px; background: #fff; color: #171717; font-size: 28px; cursor: pointer; }
+    html:has(.photo-dialog[open]) { overflow: hidden; }
   </style>
 
 </head>
@@ -412,6 +425,10 @@ margin-bottom:15px;
  
   <div id="menu"></div>
 
+  <dialog class="photo-dialog" id="photo-dialog" aria-labelledby="photo-dialog-title">
+    <header><h2 id="photo-dialog-title"></h2><button type="button" aria-label="Κλείσιμο / Close" autofocus>×</button></header>
+    <img alt="" width="640" height="360">
+  </dialog>
   <script src="translations.js"></script>
   <script src="i18n.js"></script>
   <script>
@@ -538,7 +555,7 @@ margin-bottom:15px;
 
         menu.innerHTML = `
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Bao/Red%20Smash%20Bao.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Bao/Red%20Smash%20Bao.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-title">
           <div class="item-name"> Red Smash Bao </div>
           <span class="menu-badge hot">
@@ -553,7 +570,7 @@ margin-bottom:15px;
           <span class="price"> 5,70 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Bao/Green%20Chick%20Bao.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Bao/Green%20Chick%20Bao.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-title">
           <div class="item-name"> Green Chick Bao </div>
           <span class="menu-badge">
@@ -564,7 +581,7 @@ margin-bottom:15px;
           <span class="price"> 5,10 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Bao/Light%20Blue%20Beefy.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Bao/Light%20Blue%20Beefy.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-title">
           <div class="item-name"> Light Blue Beefy </div>
           <span class="menu-badge">
@@ -575,43 +592,43 @@ margin-bottom:15px;
           <span class="price"> 5,30 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Bao/Crunchy%20Chick%20Bao.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Bao/Crunchy%20Chick%20Bao.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Crunchy Chick Bao </div>
           <div class="item-desc"> Τραγανό Φιλέτο κοτόπουλου, Λόλα, Καρότο, Sweet Chilli Mayo, Σουσάμι </div>
           <span class="price"> 4,40 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Bao/Pulled%20Pork%20Bao.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Bao/Pulled%20Pork%20Bao.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Pulled Pork Bao </div>
           <div class="item-desc"> Pulled Pork, Λόλα, Καρότο, BBQ Sauce </div>
           <span class="price"> 4,50 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Bao/Pansetaki%20Bao.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Bao/Pansetaki%20Bao.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Pancetaki Bao </div>
           <div class="item-desc"> Χοιρινό πανσετάκι, Λόλα, Κρεμμύδι, Smoky Mayo, Σουσάμι </div>
           <span class="price"> 4,60 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Bao/Truffle%20Beef%20Bao.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Bao/Truffle%20Beef%20Bao.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Truffle Beef Bao Bun </div>
           <div class="item-desc"> Χειροποίητο μοσχαρίσιο Μπιφτέκι, Λόλα, Truffle Mayo, Crispy Onion </div>
           <span class="price"> 5,20 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Bao/Roasted%20Onion%20Bao.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Bao/Roasted%20Onion%20Bao.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Roasted Onion Bao Bun </div>
           <div class="item-desc"> Χειροποίητο μοσχαρίσιο Μπιφτέκι, Λόλα, Ντομάτα, Roasted Onion Sauce </div>
           <span class="price"> 5,20 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Bao/Bao%20%CE%93%CE%B1%CF%81%CE%AF%CE%B4%CE%B5%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Bao/Bao%20%CE%93%CE%B1%CF%81%CE%AF%CE%B4%CE%B5%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Bao Bun Γαρίδες </div>
           <div class="item-desc"> Τραγανές Γαρίδες, Λόλα, Vegan Mayo, Sweet Chilli, Σουσάμι </div>
           <span class="price"> 5,20 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Bao/Mushroom%20Bao.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Bao/Mushroom%20Bao.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Mushroom Bao Bun <span class="diet-badge vegan">
           <span aria-hidden="true"> 🌱 </span>
           <span> Vegan </span>
@@ -629,7 +646,7 @@ margin-bottom:15px;
         menu.innerHTML = `
           <div class="subcategory"> Beef Burgers </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Burgers/Bam%20Classic.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Burgers/Bam%20Classic.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-title">
           <div class="item-name"> BAM Classic </div>
           <span class="menu-badge hot">
@@ -649,7 +666,7 @@ margin-bottom:15px;
           </div>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Burgers/Cheese.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Burgers/Cheese.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Cheeseburger </div>
           <div class="item-desc"> Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Κέτσαπ, Μουστάρδα, Ταρτάρ Sauce </div>
           <div class="prices">
@@ -660,7 +677,7 @@ margin-bottom:15px;
           </div>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Burgers/Onion%20Bam.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Burgers/Onion%20Bam.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Onion Bam </div>
           <div class="item-desc"> Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Iceberg, Ντομάτα, Onion Rings, Roasted Onion Sauce </div>
           <div class="prices">
@@ -671,7 +688,7 @@ margin-bottom:15px;
           </div>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Burgers/BBQ%20Wild.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Burgers/BBQ%20Wild.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> BBQ Wild </div>
           <div class="item-desc"> Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Iceberg, Κρεμμύδι, Μαγιονέζα, BBQ Sauce </div>
           <div class="prices">
@@ -682,7 +699,7 @@ margin-bottom:15px;
           </div>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Burgers/Hot%20Slaw.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Burgers/Hot%20Slaw.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Hot Slaw <span class="diet-badge spicy">
           <span aria-hidden="true"> 🌶️🌶️ </span>
           <span> Καυτερό </span>
@@ -697,7 +714,7 @@ margin-bottom:15px;
           </div>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Burgers/Mexican%20Corn.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Burgers/Mexican%20Corn.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Mexican Corn </div>
           <div class="item-desc"> Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Iceberg, Ντομάτα, Κρεμμύδι, Καλαμπόκι, Μαγιονέζα, Sweet Chilli Sauce, Τριμμένη Παρμεζάνα </div>
           <div class="prices">
@@ -708,7 +725,7 @@ margin-bottom:15px;
           </div>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Burgers/Double%20Bacon.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Burgers/Double%20Bacon.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Double Bacon </div>
           <div class="item-desc"> Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Διπλό Bacon, Iceberg, Μαγιονέζα, Chutney Πιπεριάς </div>
           <div class="prices">
@@ -719,7 +736,7 @@ margin-bottom:15px;
           </div>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Burgers/Drunk%20Onion.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Burgers/Drunk%20Onion.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Drunk Onion Burger </div>
           <div class="item-desc"> Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Gouda, Iceberg, Ντομάτα, Bacon, Μαγιονέζα, Καραμελωμένα Κρεμμύδια </div>
           <div class="prices">
@@ -730,7 +747,7 @@ margin-bottom:15px;
           </div>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Burgers/Egg.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Burgers/Egg.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Egg Burger </div>
           <div class="item-desc"> Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Bacon, Iceberg, Αυγό, Smoky Mayo </div>
           <div class="prices">
@@ -741,7 +758,7 @@ margin-bottom:15px;
           </div>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Burgers/Truffle%20Beef.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Burgers/Truffle%20Beef.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Truffle Beef Burger </div>
           <div class="item-desc"> Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Gouda, Iceberg, Μανιτάρια, Truffle Mayo </div>
           <div class="prices">
@@ -754,14 +771,14 @@ margin-bottom:15px;
           </div>
           <div class="subcategory"> Chicken Burgers </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Burgers/Golden%20Chicken.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Burgers/Golden%20Chicken.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Golden Chicken </div>
           <div class="item-desc"> Τραγανό Φιλέτο κοτόπουλου, Iceberg, Ντομάτα, Roasted Onion Sauce </div>
           <span class="price"> Regular 4,10 € </span>
           <span class="price"> Large 6,10 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Burgers/Caesars.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Burgers/Caesars.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Caesar's Burger </div>
           <div class="item-desc"> Ψητό Φιλέτο κοτόπουλου, Iceberg, Bacon, Παρμεζάνα, Caesar Sauce </div>
           <span class="price"> Regular 4,00 € </span>
@@ -769,13 +786,13 @@ margin-bottom:15px;
           </div>
           <div class="subcategory"> Dirty Burgers </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Burgers/Pulled%20Pork.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Burgers/Pulled%20Pork.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Pulled Pork </div>
           <div class="item-desc"> Pulled Pork, Coleslaw, Πίκλες, Μαγιονέζα, BBQ Sauce </div>
           <span class="price"> Large 6,00 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Burgers/Beef%20and%20Pancetta.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Burgers/Beef%20and%20Pancetta.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Beef n Pancetta </div>
           <div class="item-desc"> Χειροποίητο Μοσχαρίσιο Μπιφτέκι, Τυρί Gouda, Χοιρινή Πανσέτα, Ντομάτα, Κρεμμύδι, Chimichurri Mayo </div>
           <span class="price"> Large 8,20 € </span>
@@ -803,42 +820,42 @@ margin-bottom:15px;
       if (category === 'hotdogs') {
        menu.innerHTML = `
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Hot%20Dogs/Classic.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Hot%20Dogs/Classic.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Classic Hot Dog </div>
           <div class="item-desc"> Λουκάνικο, Μαγιονέζα, Κέτσαπ, Μουστάρδα </div>
           <span class="price"> ΦΡΑΝΚΦΟΥΡΤΗΣ 3,50 € </span>
           <span class="price"> ΧΩΡΙΑΤΙΚΟ 4,50 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Hot%20Dogs/Slaw.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Hot%20Dogs/Slaw.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Slaw Dog </div>
           <div class="item-desc"> Λουκάνικο, Coleslaw, Κέτσαπ, Crispy onion </div>
           <span class="price"> ΦΡΑΝΚΦΟΥΡΤΗΣ 3,70 € </span>
           <span class="price"> ΧΩΡΙΑΤΙΚΟ 4,70 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Hot%20Dogs/BBQ.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Hot%20Dogs/BBQ.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> BBQ Hot Dog </div>
           <div class="item-desc"> Λουκάνικο, Πιπεριές, Πατάτες, BBQ Sauce </div>
           <span class="price"> ΦΡΑΝΚΦΟΥΡΤΗΣ 3,80 € </span>
           <span class="price"> ΧΩΡΙΑΤΙΚΟ 4,80 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Hot%20Dogs/Bacon.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Hot%20Dogs/Bacon.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Bacon Hot Dog </div>
           <div class="item-desc"> Λουκάνικο, Bacon, Iceberg, Καραμελωμένα Κρεμμύδια, Μαγιονέζα </div>
           <span class="price"> ΦΡΑΝΚΦΟΥΡΤΗΣ 4,10 € </span>
           <span class="price"> ΧΩΡΙΑΤΙΚΟ 5,10 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Hot%20Dogs/Egg.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Hot%20Dogs/Egg.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Egg Dog </div>
           <div class="item-desc"> Λουκάνικο, Πατάτες, Αυγό, Κέτσαπ, Μαγιονέζα </div>
           <span class="price"> ΦΡΑΝΚΦΟΥΡΤΗΣ 4,30 € </span>
           <span class="price"> ΧΩΡΙΑΤΙΚΟ 5,30 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Hot%20Dogs/Hot.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Hot%20Dogs/Hot.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Hot Hot Dog <span class="diet-badge spicy">
           <span aria-hidden="true"> 🌶️🌶️ </span>
           <span> Καυτερό </span>
@@ -849,7 +866,7 @@ margin-bottom:15px;
           <span class="price"> ΧΩΡΙΑΤΙΚΟ 4,90 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Hot%20Dogs/Corn%20n%20Chilli.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Hot%20Dogs/Corn%20n%20Chilli.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Corn n Chilli Dog </div>
           <div class="item-desc"> Λουκάνικο, Καλαμπόκι, Ντομάτα, Τριμμένη Παρμεζάνα, Sweet Chilli Mayo </div>
           <span class="price"> ΦΡΑΝΚΦΟΥΡΤΗΣ 4,40 € </span>
@@ -863,7 +880,7 @@ margin-bottom:15px;
   if (category === 'starters') {
         menu.innerHTML = `
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Starters/French%20Fries.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Starters/French%20Fries.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> French Fries <span class="diet-badge vegan">
           <span aria-hidden="true"> 🌱 </span>
           <span> Vegan </span>
@@ -873,7 +890,7 @@ margin-bottom:15px;
           <span class="price"> 3,20 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Starters/Country.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Starters/Country.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Πατάτες Country Style <span class="diet-badge vegan">
           <span aria-hidden="true"> 🌱 </span>
           <span> Vegan </span>
@@ -883,7 +900,7 @@ margin-bottom:15px;
           <span class="price"> 4,20 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Starters/%CE%93%CE%BB%CF%85%CE%BA%CE%BF%CF%80%CE%B1%CF%84%CE%AC%CF%84%CE%B5%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Starters/%CE%93%CE%BB%CF%85%CE%BA%CE%BF%CF%80%CE%B1%CF%84%CE%AC%CF%84%CE%B5%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Γλυκοπατάτες <span class="diet-badge vegan">
           <span aria-hidden="true"> 🌱 </span>
           <span> Vegan </span>
@@ -893,7 +910,7 @@ margin-bottom:15px;
           <span class="price"> 4,30 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Starters/Onion%20Rings.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Starters/Onion%20Rings.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Onion Rings <span class="diet-badge vegan">
           <span aria-hidden="true"> 🌱 </span>
           <span> Vegan </span>
@@ -903,13 +920,13 @@ margin-bottom:15px;
           <span class="price"> 3,60 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Starters/Mozzarella%20Sticks.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Starters/Mozzarella%20Sticks.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Mozzarella Sticks </div>
           <div class="item-desc"> 6 τεμάχια παναρισμένα στικς μοτσαρέλας + BBQ Sauce </div>
           <span class="price"> 5,50 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Starters/Cheddar%20Cheese%20Jalapenos.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Starters/Cheddar%20Cheese%20Jalapenos.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Cheddar Cheese Jalapenos <span class="diet-badge spicy">
           <span aria-hidden="true"> 🌶️ </span>
           <span> Πικάντικο </span>
@@ -919,13 +936,13 @@ margin-bottom:15px;
           <span class="price"> 6,80 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Starters/Chicken%20Pop%20Corn.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Starters/Chicken%20Pop%20Corn.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Chicken Pop Corn </div>
           <div class="item-desc"> Τραγανές Μπουκίτσες κοτόπουλου + Sauce Μουστάρδας </div>
           <span class="price"> 5,90 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Starters/Buffalo.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Starters/Buffalo.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Buffalo Chicken Wings <span class="diet-badge spicy">
           <span aria-hidden="true"> 🌶️ </span>
           <span> Πικάντικο </span>
@@ -935,7 +952,7 @@ margin-bottom:15px;
           <span class="price"> 5,90 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Starters/%CE%A6%CE%B9%CE%BB%CE%B5%CF%84%CE%AC%CE%BA%CE%B9%CE%B1.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Starters/%CE%A6%CE%B9%CE%BB%CE%B5%CF%84%CE%AC%CE%BA%CE%B9%CE%B1.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Φιλετάκια τραγανού κοτόπουλου </div>
           <div class="item-desc"> 5 Φιλετάκια τραγανού κοτόπουλου + Sauce Μουστάρδας </div>
           <span class="price"> 6,20 € </span>
@@ -948,7 +965,7 @@ margin-bottom:15px;
   if (category === 'clubsandwiches') {
         menu.innerHTML = `
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Club%20Sandwiches/Caesars.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Club%20Sandwiches/Caesars.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-title">
           <div class="item-name"> Caesar's Club Sandwich </div>
           <span class="menu-badge">
@@ -959,19 +976,19 @@ margin-bottom:15px;
           <span class="price"> 7,50 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Club%20Sandwiches/Classic.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Club%20Sandwiches/Classic.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Classic Club Sandwich </div>
           <div class="item-desc"> Ζαμπόν, Bacon, Τυρί Gouda, Iceberg, Ντομάτα, Μαγιονέζα </div>
           <span class="price"> 6,70 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Club%20Sandwiches/Egg.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Club%20Sandwiches/Egg.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Egg Club Sandwich </div>
           <div class="item-desc"> Ζαμπόν, Bacon, Τυρί Gouda, Iceberg, Ντομάτα, Smoky Mayo, Αυγό Βραστό </div>
           <span class="price"> 7,00 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Club%20Sandwiches/Chicken.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Club%20Sandwiches/Chicken.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Chicken Club Sandwich </div>
           <div class="item-desc"> Ψητό Φιλέτο κοτόπουλου, Bacon, Iceberg, Ντομάτα, Sauce Μουστάρδας </div>
           <span class="price"> 7,40 € </span>
@@ -984,25 +1001,25 @@ margin-bottom:15px;
   if (category === 'tortigies') {
         menu.innerHTML = `
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/%CE%A4%CE%BF%CF%81%CF%84%CE%AF%CE%B3%CE%B9%CE%B5%CF%82/%CE%A8%CE%B7%CF%84%CF%8C%20%CE%9A%CE%BF%CF%84%CF%8C%CF%80%CE%BF%CF%85%CE%BB%CE%BF.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/%CE%A4%CE%BF%CF%81%CF%84%CE%AF%CE%B3%CE%B9%CE%B5%CF%82/%CE%A8%CE%B7%CF%84%CF%8C%20%CE%9A%CE%BF%CF%84%CF%8C%CF%80%CE%BF%CF%85%CE%BB%CE%BF.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Τορτίγια με ψητό κοτόπουλο </div>
           <div class="item-desc"> Ψητό Φιλέτο κοτόπουλου, Iceberg, Ντομάτα, Μαγιονέζα </div>
           <span class="price"> 4,40 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/%CE%A4%CE%BF%CF%81%CF%84%CE%AF%CE%B3%CE%B9%CE%B5%CF%82/%CE%A4%CF%81%CE%B1%CE%B3%CE%B1%CE%BD%CF%8C%20%CE%9A%CE%BF%CF%84%CF%8C%CF%80%CE%BF%CF%85%CE%BB%CE%BF.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/%CE%A4%CE%BF%CF%81%CF%84%CE%AF%CE%B3%CE%B9%CE%B5%CF%82/%CE%A4%CF%81%CE%B1%CE%B3%CE%B1%CE%BD%CF%8C%20%CE%9A%CE%BF%CF%84%CF%8C%CF%80%CE%BF%CF%85%CE%BB%CE%BF.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Τορτίγια με τραγανό κοτόπουλο </div>
           <div class="item-desc"> Παναρισμένο Κοτόπουλο, Iceberg, Ντομάτα, Sauce Μουστάρδας </div>
           <span class="price"> 4,70 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/%CE%A4%CE%BF%CF%81%CF%84%CE%AF%CE%B3%CE%B9%CE%B5%CF%82/Pulled%20Pork.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/%CE%A4%CE%BF%CF%81%CF%84%CE%AF%CE%B3%CE%B9%CE%B5%CF%82/Pulled%20Pork.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Τορτίγια Pulled Pork </div>
           <div class="item-desc"> Pulled Pork, Iceberg, Ντομάτα, Καρότο, Ταρτάρ Sauce </div>
           <span class="price"> 4,70 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/%CE%A4%CE%BF%CF%81%CF%84%CE%AF%CE%B3%CE%B9%CE%B5%CF%82/%CE%9A%CE%BF%CE%BB%CE%BF%CE%BA%CF%85%CE%B8%CE%BF%CE%BA%CE%B5%CF%86%CF%84%CE%AD%CE%B4%CE%B5%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/%CE%A4%CE%BF%CF%81%CF%84%CE%AF%CE%B3%CE%B9%CE%B5%CF%82/%CE%9A%CE%BF%CE%BB%CE%BF%CE%BA%CF%85%CE%B8%CE%BF%CE%BA%CE%B5%CF%86%CF%84%CE%AD%CE%B4%CE%B5%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Τορτίγια Κολοκυθοκεφτέδες <span class="diet-badge vegan">
           <span aria-hidden="true"> 🌱 </span>
           <span> Vegan </span>
@@ -1012,7 +1029,7 @@ margin-bottom:15px;
           <span class="price"> 4,30 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/%CE%A4%CE%BF%CF%81%CF%84%CE%AF%CE%B3%CE%B9%CE%B5%CF%82/%CE%9D%CF%84%CE%BF%CE%BC%CE%B1%CF%84%CE%BF%CE%BA%CE%B5%CF%86%CF%84%CE%AD%CE%B4%CE%B5%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/%CE%A4%CE%BF%CF%81%CF%84%CE%AF%CE%B3%CE%B9%CE%B5%CF%82/%CE%9D%CF%84%CE%BF%CE%BC%CE%B1%CF%84%CE%BF%CE%BA%CE%B5%CF%86%CF%84%CE%AD%CE%B4%CE%B5%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Τορτίγια Ντοματοκεφτέδες <span class="diet-badge vegan">
           <span aria-hidden="true"> 🌱 </span>
           <span> Vegan </span>
@@ -1022,7 +1039,7 @@ margin-bottom:15px;
           <span class="price"> 4,40 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/%CE%A4%CE%BF%CF%81%CF%84%CE%AF%CE%B3%CE%B9%CE%B5%CF%82/%CE%A6%CE%B1%CE%BB%CE%AC%CF%86%CE%B5%CE%BB.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/%CE%A4%CE%BF%CF%81%CF%84%CE%AF%CE%B3%CE%B9%CE%B5%CF%82/%CE%A6%CE%B1%CE%BB%CE%AC%CF%86%CE%B5%CE%BB.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Τορτίγια Φαλάφελ <span class="diet-badge vegan">
           <span aria-hidden="true"> 🌱 </span>
           <span> Vegan </span>
@@ -1040,25 +1057,25 @@ margin-bottom:15px;
   if (category === 'sandwiches') {
         menu.innerHTML = `
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sandwiches/%CE%A4%CF%81%CE%B1%CE%B3%CE%B1%CE%BD%CF%8C%20%CE%9A%CE%BF%CF%84%CF%8C%CF%80%CE%BF%CF%85%CE%BB%CE%BF.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sandwiches/%CE%A4%CF%81%CE%B1%CE%B3%CE%B1%CE%BD%CF%8C%20%CE%9A%CE%BF%CF%84%CF%8C%CF%80%CE%BF%CF%85%CE%BB%CE%BF.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Sandwich με Τραγανό Κοτόπουλο </div>
           <div class="item-desc"> Τραγανό Φιλέτο κοτόπουλου, Iceberg, Ντομάτα, Sauce Μουστάρδας </div>
           <span class="price"> 4,70 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sandwiches/%CE%A0%CE%B1%CE%BD%CF%83%CE%B5%CF%84%CE%AC%CE%BA%CE%B9.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sandwiches/%CE%A0%CE%B1%CE%BD%CF%83%CE%B5%CF%84%CE%AC%CE%BA%CE%B9.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Sandwich Pancetaki </div>
           <div class="item-desc"> Χοιρινό πανσετάκι, Iceberg, Ντομάτα, Πιπεριές, Smoky Mayo </div>
           <span class="price"> 4,50 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sandwiches/Beef.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sandwiches/Beef.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Beef Sandwich </div>
           <div class="item-desc"> Χειροποίητο μπιφτέκι, Iceberg, Ντομάτα, Κρεμμύδι, French Sauce </div>
           <span class="price"> 5,70 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sandwiches/%CE%9A%CE%BF%CE%BB%CE%BF%CE%BA%CF%85%CE%B8%CE%BF%CE%BA%CE%B5%CF%86%CF%84%CE%AD%CE%B4%CE%B5%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sandwiches/%CE%9A%CE%BF%CE%BB%CE%BF%CE%BA%CF%85%CE%B8%CE%BF%CE%BA%CE%B5%CF%86%CF%84%CE%AD%CE%B4%CE%B5%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Sandwich Κολοκυθοκεφτέδες <span class="diet-badge vegan">
           <span aria-hidden="true"> 🌱 </span>
           <span> Vegan </span>
@@ -1068,7 +1085,7 @@ margin-bottom:15px;
           <span class="price"> 4,30 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sandwiches/%CE%9D%CF%84%CE%BF%CE%BC%CE%B1%CF%84%CE%BF%CE%BA%CE%B5%CF%86%CF%84%CE%AD%CE%B4%CE%B5%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sandwiches/%CE%9D%CF%84%CE%BF%CE%BC%CE%B1%CF%84%CE%BF%CE%BA%CE%B5%CF%86%CF%84%CE%AD%CE%B4%CE%B5%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Sandwich Ντοματοκεφτέδες <span class="diet-badge vegan">
           <span aria-hidden="true"> 🌱 </span>
           <span> Vegan </span>
@@ -1078,7 +1095,7 @@ margin-bottom:15px;
           <span class="price"> 4,40 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sandwiches/%CE%A6%CE%B1%CE%BB%CE%AC%CF%86%CE%B5%CE%BB.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sandwiches/%CE%A6%CE%B1%CE%BB%CE%AC%CF%86%CE%B5%CE%BB.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Sandwich Φαλάφελ <span class="diet-badge vegan">
           <span aria-hidden="true"> 🌱 </span>
           <span> Vegan </span>
@@ -1096,19 +1113,19 @@ margin-bottom:15px;
   if (category === 'pites') {
         menu.innerHTML = `
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/%CE%9A%CF%85%CF%80%CF%81%CE%B9%CE%B1%CE%BA%CE%AD%CF%82/%CE%9A%CE%BF%CF%84%CF%8C%CF%80%CE%BF%CF%85%CE%BB%CE%BF.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/%CE%9A%CF%85%CF%80%CF%81%CE%B9%CE%B1%CE%BA%CE%AD%CF%82/%CE%9A%CE%BF%CF%84%CF%8C%CF%80%CE%BF%CF%85%CE%BB%CE%BF.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Κυπριακή πίτα κοτόπουλο </div>
           <div class="item-desc"> Τραγανό Φιλέτο κοτόπουλου, Coleslaw, Πατάτες, Μαγιονέζα </div>
           <span class="price"> 5,10 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/%CE%9A%CF%85%CF%80%CF%81%CE%B9%CE%B1%CE%BA%CE%AD%CF%82/%CE%A0%CE%B1%CE%BD%CF%83%CE%B5%CF%84%CE%AC%CE%BA%CE%B9.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/%CE%9A%CF%85%CF%80%CF%81%CE%B9%CE%B1%CE%BA%CE%AD%CF%82/%CE%A0%CE%B1%CE%BD%CF%83%CE%B5%CF%84%CE%AC%CE%BA%CE%B9.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Κυπριακή πίτα Πανσετάκι </div>
           <div class="item-desc"> Χοιρινό Πανσετάκι, Iceberg, Ντομάτα, Πατάτες, Κρεμμύδι, Smoky Mayo </div>
           <span class="price"> 5,10 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/%CE%9A%CF%85%CF%80%CF%81%CE%B9%CE%B1%CE%BA%CE%AD%CF%82/%CE%9D%CF%84%CE%BF%CE%BD%CE%AD%CF%81.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/%CE%9A%CF%85%CF%80%CF%81%CE%B9%CE%B1%CE%BA%CE%AD%CF%82/%CE%9D%CF%84%CE%BF%CE%BD%CE%AD%CF%81.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Κυπριακή πίτα ντονέρ </div>
           <div class="item-desc"> Ντονέρ, Iceberg, Ντομάτα, Κρεμμύδι, Πατάτες, Sauce Μουστάρδας </div>
           <span class="price"> 5,40 € </span>
@@ -1121,25 +1138,25 @@ margin-bottom:15px;
   if (category === 'salads') {
         menu.innerHTML = `
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Salads/Coleslaw.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Salads/Coleslaw.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Coleslaw </div>
           <div class="item-desc"> Λάχανο, Καρότο, Πιπεριές, Coleslaw Sauce </div>
           <span class="price"> 4,90 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Salads/Bam.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Salads/Bam.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Bam Salad </div>
           <div class="item-desc"> Iceberg, Ντομάτα, Αγγούρι, Πιπεριές, Bacon Trimmings, Αυγό βραστό, Tortilla Strips, French Sauce </div>
           <span class="price"> 6,40 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Salads/Caesars.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Salads/Caesars.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Caesar's Salad </div>
           <div class="item-desc"> Iceberg, Ψητό Κοτόπουλο, Καλαμπόκι, Κρουτόν, Τριμμένη Παρμεζάνα, Caesar Sauce </div>
           <span class="price"> 7,20 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Salads/Fresh.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Salads/Fresh.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Fresh Salad </div>
           <div class="item-desc"> Iceberg, Ντομάτα, Αγγούρι, Καρότο, Κάπαρη, Παρμεζάνα, Κρουτόν, Βινεγκρέτ </div>
           <span class="price"> 6,40 € </span>
@@ -1153,25 +1170,25 @@ margin-bottom:15px;
   if (category === 'kidsmenu') {
         menu.innerHTML = `
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Kids%20Menu/Pop%20Corn.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Kids%20Menu/Pop%20Corn.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Chicken Pop Corn Kids’ Menu </div>
           <div class="item-desc"> Τραγανές μπουκίτσες κοτόπουλου <br> Πατάτες + Χυμός Amita Fun + Δώρο Έκπληξη </div>
           <span class="price"> 6,20 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Kids%20Menu/Beef%20Burger.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Kids%20Menu/Beef%20Burger.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Beef Burger Kids’ Menu </div>
           <div class="item-desc"> Μοσχαρίσιο Μπιφτέκι, Τυρί Cheddar, Μαγιονέζα <br> Πατάτες + Χυμός Amita Fun + Δώρο Έκπληξη </div>
           <span class="price"> 6,40 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Kids%20Menu/Chicken%20Burger.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Kids%20Menu/Chicken%20Burger.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Chicken Burger Kids’ Menu </div>
           <div class="item-desc"> Ψητό Φιλέτο κοτόπουλου, Τυρί Cheddar, Μαγιονέζα <br> Πατάτες + Χυμός Amita Fun + Δώρο Έκπληξη </div>
           <span class="price"> 6,20 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Kids%20Menu/Hot%20Dog.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Kids%20Menu/Hot%20Dog.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Hot Dog Kids’ Menu </div>
           <div class="item-desc"> Λουκάνικο Φρανκφούρτης, Μαγιονέζα, Κέτσαπ, Μουστάρδα <br> Πατάτες + Χυμός Amita Fun + Δώρο Έκπληξη </div>
           <span class="price"> 6,20 € </span>
@@ -1186,19 +1203,19 @@ margin-bottom:15px;
         menu.innerHTML = `
           <div class="subcategory"> Sweets </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Desserts/Churros%20Classic.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Desserts/Churros%20Classic.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Churros Classic </div>
           <div class="item-desc"> 6 Churros με ζάχαρη και κανέλα </div>
           <span class="price"> 3,30 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Desserts/Churros%20Choco.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Desserts/Churros%20Choco.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Churros Choco </div>
           <div class="item-desc"> 6 Churros με Πραλίνα Σοκολάτας και Πολύχρωμη Τρούφα </div>
           <span class="price"> 3,50 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Desserts/Churros%20Bueno.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Desserts/Churros%20Bueno.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-title">
           <div class="item-name"> Churros Bueno </div>
           <span class="menu-badge">
@@ -1248,7 +1265,7 @@ margin-bottom:15px;
      menu.innerHTML = `
           <div class="subcategory"> Bites & Sides </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Starters/Onion%20Rings.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Starters/Onion%20Rings.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Onion Rings <span class="diet-badge vegan">
           <span aria-hidden="true"> 🌱 </span>
           <span> Vegan </span>
@@ -1257,7 +1274,8 @@ margin-bottom:15px;
           <div class="item-desc"> 10 τεμάχια τηγανητά κρεμμύδια + BBQ Sauce </div>
           <span class="price"> 3,60 € </span>
           </div>
-          <div class="item">
+          <div class="item item-with-photo">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/%CE%9D%CE%B7%CF%83%CF%84%CE%AF%CF%83%CE%B9%CE%BC%CE%B1/%CE%9A%CE%BF%CE%BB%CE%BF%CE%BA%CF%85%CE%B8%CE%BF%CE%BA%CE%B5%CF%86%CF%84%CE%AD%CE%B4%CE%B5%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Κολοκυθοκεφτέδες <span class="diet-badge vegan">
           <span aria-hidden="true"> 🌱 </span>
           <span> Vegan </span>
@@ -1266,7 +1284,8 @@ margin-bottom:15px;
           <div class="item-desc"> 5 Τηγανητοί Κολοκυθοκεφτέδες + dip Chimichurri Mayo </div>
           <span class="price"> 5,30 € </span>
           </div>
-          <div class="item">
+          <div class="item item-with-photo">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/%CE%9D%CE%B7%CF%83%CF%84%CE%AF%CF%83%CE%B9%CE%BC%CE%B1/%CE%9D%CF%84%CE%BF%CE%BC%CE%B1%CF%84%CE%BF%CE%BA%CE%B5%CF%86%CF%84%CE%AD%CE%B4%CE%B5%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Ντοματοκεφτέδες <span class="diet-badge vegan">
           <span aria-hidden="true"> 🌱 </span>
           <span> Vegan </span>
@@ -1275,7 +1294,8 @@ margin-bottom:15px;
           <div class="item-desc"> 5 Τηγανητοί Ντοματοκεφτέδες + dip Vegan Mayo </div>
           <span class="price"> 5,30 € </span>
           </div>
-          <div class="item">
+          <div class="item item-with-photo">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/%CE%9D%CE%B7%CF%83%CF%84%CE%AF%CF%83%CE%B9%CE%BC%CE%B1/%CE%A6%CE%B1%CE%BB%CE%AC%CF%86%CE%B5%CE%BB.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Φαλάφελ <span class="diet-badge vegan">
           <span aria-hidden="true"> 🌱 </span>
           <span> Vegan </span>
@@ -1284,30 +1304,33 @@ margin-bottom:15px;
           <div class="item-desc"> 5 Τηγανητοί Ρεβυθοκεφτέδες + dip French Sauce </div>
           <span class="price"> 5,30 € </span>
           </div>
-          <div class="item">
+          <div class="item item-with-photo">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/%CE%9D%CE%B7%CF%83%CF%84%CE%AF%CF%83%CE%B9%CE%BC%CE%B1/%CE%A3%CF%84%CE%B9%CE%BA%CF%82%20%CE%BA%CE%B1%CE%BB%CE%B1%CE%BC%CE%B1%CF%81%CE%B9%CE%BF%CF%8D.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Στικς καλαμαριού </div>
           <div class="item-desc"> Στικς καλαμαριού <br> + Πατάτες της επιλογής σας <br> + dip Chimichurri Mayo </div>
           <span class="price"> Από 7,60 € </span>
           </div>
-          <div class="item">
+          <div class="item item-with-photo">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/%CE%9D%CE%B7%CF%83%CF%84%CE%AF%CF%83%CE%B9%CE%BC%CE%B1/Nuggets%20%CE%93%CE%B1%CF%81%CE%AF%CE%B4%CE%B1%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Nuggets Γαρίδας </div>
           <div class="item-desc"> 10 Τραγανά Nuggets γαρίδας <br> + Πατάτες της επιλογής σας <br> + dip French Sauce </div>
           <span class="price"> Από 7,90 € </span>
           </div>
-          <div class="item">
+          <div class="item item-with-photo">
+          <button type="button" class="item-photo photo-preview" aria-label="Γαρίδες Tempura — Zoom" aria-haspopup="dialog"><img src="images/%CE%9D%CE%B7%CF%83%CF%84%CE%AF%CF%83%CE%B9%CE%BC%CE%B1/%CE%93%CE%B1%CF%81%CE%AF%CE%B4%CE%B5%CF%82%20Tempura.jpg" alt="Γαρίδες Tempura" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Γαρίδες Tempura </div>
           <div class="item-desc"> 5 Παναρισμένες γαρίδες <br> + Πατάτες της επιλογής σας <br> + dip French Sauce </div>
           <span class="price"> Από 7,90 € </span>
           </div>
           <div class="subcategory"> Bao Buns </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Bao/Bao%20%CE%93%CE%B1%CF%81%CE%AF%CE%B4%CE%B5%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Bao/Bao%20%CE%93%CE%B1%CF%81%CE%AF%CE%B4%CE%B5%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Bao Bun Γαρίδες </div>
           <div class="item-desc"> 2 Τραγανές γαρίδες, Λόλα, Vegan Mayo, Sweet Chilli Sauce, Σουσάμι </div>
           <span class="price"> 5,20 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Bao/Mushroom%20Bao.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Bao/Mushroom%20Bao.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Mushroom Bao Bun <span class="diet-badge vegan">
           <span aria-hidden="true"> 🌱 </span>
           <span> Vegan </span>
@@ -1318,7 +1341,7 @@ margin-bottom:15px;
           </div>
           <div class="subcategory"> Burgers </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/%CE%9D%CE%B7%CF%83%CF%84%CE%AF%CF%83%CE%B9%CE%BC%CE%B1/Veggie%20Patty.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/%CE%9D%CE%B7%CF%83%CF%84%CE%AF%CF%83%CE%B9%CE%BC%CE%B1/Veggie%20Patty.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Veggie Patty Burger <span class="diet-badge vegan">
           <span aria-hidden="true"> 🌱 </span>
           <span> Vegan </span>
@@ -1328,14 +1351,14 @@ margin-bottom:15px;
           <span class="price"> 4,50 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/%CE%9D%CE%B7%CF%83%CF%84%CE%AF%CF%83%CE%B9%CE%BC%CE%B1/%CE%9A%CE%B1%CE%BB%CE%B1%CE%BC%CE%AC%CF%81%CE%B9%20Burger.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/%CE%9D%CE%B7%CF%83%CF%84%CE%AF%CF%83%CE%B9%CE%BC%CE%B1/%CE%9A%CE%B1%CE%BB%CE%B1%CE%BC%CE%AC%CF%81%CE%B9%20Burger.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Burger Καλαμάρι </div>
           <div class="item-desc"> Στικς Καλαμαριού, Iceberg, Αγγούρι, Vegan Mayo, Chutney Πιπεριάς </div>
           <span class="price"> Regular 3,80 € </span>
           <span class="price"> Large 5,60 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/%CE%9D%CE%B7%CF%83%CF%84%CE%AF%CF%83%CE%B9%CE%BC%CE%B1/%CE%93%CE%B1%CF%81%CE%B9%CE%B4%CE%BFburger.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/%CE%9D%CE%B7%CF%83%CF%84%CE%AF%CF%83%CE%B9%CE%BC%CE%B1/%CE%93%CE%B1%CF%81%CE%B9%CE%B4%CE%BFburger.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Γαριδοburger </div>
           <div class="item-desc"> Nuggets Γαρίδας, Iceberg, Πίκλες, Ντομάτα, French Sauce </div>
           <span class="price"> Regular 4,30 € </span>
@@ -1343,7 +1366,7 @@ margin-bottom:15px;
           </div>
           <div class="subcategory"> Sandwiches & Τορτίγιες </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sandwiches/%CE%9A%CE%BF%CE%BB%CE%BF%CE%BA%CF%85%CE%B8%CE%BF%CE%BA%CE%B5%CF%86%CF%84%CE%AD%CE%B4%CE%B5%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sandwiches/%CE%9A%CE%BF%CE%BB%CE%BF%CE%BA%CF%85%CE%B8%CE%BF%CE%BA%CE%B5%CF%86%CF%84%CE%AD%CE%B4%CE%B5%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Κολοκυθοκεφτέδες <span class="diet-badge vegan">
           <span aria-hidden="true"> 🌱 </span>
           <span> Vegan </span>
@@ -1353,7 +1376,7 @@ margin-bottom:15px;
           <span class="price"> 4,30 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sandwiches/%CE%9D%CF%84%CE%BF%CE%BC%CE%B1%CF%84%CE%BF%CE%BA%CE%B5%CF%86%CF%84%CE%AD%CE%B4%CE%B5%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sandwiches/%CE%9D%CF%84%CE%BF%CE%BC%CE%B1%CF%84%CE%BF%CE%BA%CE%B5%CF%86%CF%84%CE%AD%CE%B4%CE%B5%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Ντοματοκεφτέδες <span class="diet-badge vegan">
           <span aria-hidden="true"> 🌱 </span>
           <span> Vegan </span>
@@ -1363,7 +1386,7 @@ margin-bottom:15px;
           <span class="price"> 4,40 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sandwiches/%CE%A6%CE%B1%CE%BB%CE%AC%CF%86%CE%B5%CE%BB.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sandwiches/%CE%A6%CE%B1%CE%BB%CE%AC%CF%86%CE%B5%CE%BB.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Φαλάφελ <span class="diet-badge vegan">
           <span aria-hidden="true"> 🌱 </span>
           <span> Vegan </span>
@@ -1373,7 +1396,8 @@ margin-bottom:15px;
           <span class="price"> 4,30 € </span>
           </div>
           <div class="subcategory"> Salads </div>
-          <div class="item">
+          <div class="item item-with-photo">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/%CE%9D%CE%B7%CF%83%CF%84%CE%AF%CF%83%CE%B9%CE%BC%CE%B1/Coleslaw%20%CE%9D%CE%B7%CF%83%CF%84%CE%AF%CF%83%CE%B9%CE%BC%CE%B7.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Coleslaw Νηστίσιμη <span class="diet-badge vegan">
           <span aria-hidden="true"> 🌱 </span>
           <span> Vegan </span>
@@ -1383,7 +1407,7 @@ margin-bottom:15px;
           <span class="price"> 5,10 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/%CE%9D%CE%B7%CF%83%CF%84%CE%AF%CF%83%CE%B9%CE%BC%CE%B1/Green%20Mix.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/%CE%9D%CE%B7%CF%83%CF%84%CE%AF%CF%83%CE%B9%CE%BC%CE%B1/Green%20Mix.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name"> Green Mix <span class="diet-badge vegan">
           <span aria-hidden="true"> 🌱 </span>
           <span> Vegan </span>
@@ -1400,7 +1424,7 @@ margin-bottom:15px;
   if (category === 'sauces') {
         menu.innerHTML = `
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sauces/%CE%9A%CE%AD%CF%84%CF%83%CE%B1%CF%80.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sauces/%CE%9A%CE%AD%CF%84%CF%83%CE%B1%CF%80.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Κέτσαπ </span>
           </div>
@@ -1408,7 +1432,7 @@ margin-bottom:15px;
           <span class="price"> 100 g 0,70 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sauces/%CE%9C%CE%BF%CF%85%CF%83%CF%84%CE%AC%CF%81%CE%B4%CE%B1.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sauces/%CE%9C%CE%BF%CF%85%CF%83%CF%84%CE%AC%CF%81%CE%B4%CE%B1.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Μουστάρδα </span>
           </div>
@@ -1416,7 +1440,7 @@ margin-bottom:15px;
           <span class="price"> 100 g 0,70 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sauces/%CE%9C%CE%B1%CE%B3%CE%B9%CE%BF%CE%BD%CE%AD%CE%B6%CE%B1.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sauces/%CE%9C%CE%B1%CE%B3%CE%B9%CE%BF%CE%BD%CE%AD%CE%B6%CE%B1.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Μαγιονέζα </span>
           </div>
@@ -1424,7 +1448,7 @@ margin-bottom:15px;
           <span class="price"> 100 g 1,40 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sauces/Vegan%20Mayo.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sauces/Vegan%20Mayo.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Vegan Mayo </span>
           </div>
@@ -1432,7 +1456,7 @@ margin-bottom:15px;
           <span class="price"> 100 g 1,40 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sauces/BBQ.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sauces/BBQ.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> BBQ Sauce </span>
           </div>
@@ -1440,7 +1464,7 @@ margin-bottom:15px;
           <span class="price"> 100 g 1,40 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sauces/Sauce%20%CE%9C%CE%BF%CF%85%CF%83%CF%84%CE%AC%CF%81%CE%B4%CE%B1%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sauces/Sauce%20%CE%9C%CE%BF%CF%85%CF%83%CF%84%CE%AC%CF%81%CE%B4%CE%B1%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Sauce Μουστάρδας </span>
           </div>
@@ -1448,7 +1472,7 @@ margin-bottom:15px;
           <span class="price"> 100 g 1,40 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sauces/French.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sauces/French.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> French Sauce </span>
           </div>
@@ -1456,7 +1480,7 @@ margin-bottom:15px;
           <span class="price"> 100 g 1,40 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sauces/Smoky.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sauces/Smoky.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Smoky Mayo </span>
           </div>
@@ -1464,7 +1488,7 @@ margin-bottom:15px;
           <span class="price"> 100 g 1,40 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sauces/%CE%A4%CE%B1%CF%81%CF%84%CE%AC%CF%81.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sauces/%CE%A4%CE%B1%CF%81%CF%84%CE%AC%CF%81.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Ταρτάρ Sauce </span>
           </div>
@@ -1472,7 +1496,7 @@ margin-bottom:15px;
           <span class="price"> 100 g 1,40 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sauces/Sweet%20Chilli%20Mayo.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sauces/Sweet%20Chilli%20Mayo.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Sweet Chilli Mayo </span>
           </div>
@@ -1480,7 +1504,7 @@ margin-bottom:15px;
           <span class="price"> 100 g 1,40 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sauces/Sweet%20Chilli%20Sauce.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sauces/Sweet%20Chilli%20Sauce.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Sweet Chilli Sauce </span>
           </div>
@@ -1488,7 +1512,7 @@ margin-bottom:15px;
           <span class="price"> 100 g 1,60 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sauces/Caesars.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sauces/Caesars.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Caesar Sauce </span>
           </div>
@@ -1496,7 +1520,7 @@ margin-bottom:15px;
           <span class="price"> 100 g 1,60 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sauces/Chutney%20%CE%A0%CE%B9%CF%80%CE%B5%CF%81%CE%B9%CE%AC%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sauces/Chutney%20%CE%A0%CE%B9%CF%80%CE%B5%CF%81%CE%B9%CE%AC%CF%82.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Chutney Πιπεριάς </span>
           </div>
@@ -1504,7 +1528,7 @@ margin-bottom:15px;
           <span class="price"> 100 g 1,60 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sauces/Chimichurri%20Mayo.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sauces/Chimichurri%20Mayo.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Chimichurri Mayo </span>
           </div>
@@ -1512,7 +1536,7 @@ margin-bottom:15px;
           <span class="price"> 100 g 1,60 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sauces/Roasted%20Onion.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sauces/Roasted%20Onion.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Roasted Onion Sauce </span>
           </div>
@@ -1520,7 +1544,7 @@ margin-bottom:15px;
           <span class="price"> 100 g 1,70 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sauces/Truffle%20Mayo.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sauces/Truffle%20Mayo.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Truffle Mayo </span>
           </div>
@@ -1528,7 +1552,7 @@ margin-bottom:15px;
           <span class="price"> 100 g 1,70 € </span>
           </div>
           <div class="item item-with-photo">
-          <img class="item-photo" src="images/Sauces/Cheddar%20Sauce.jpg" alt="" width="640" height="360" loading="lazy" decoding="async">
+          <button type="button" class="item-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Sauces/Cheddar%20Sauce.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Cheddar Sauce </span>
           </div>
@@ -1543,90 +1567,90 @@ margin-bottom:15px;
      menu.innerHTML = `
           <div class="subcategory"> Αναψυκτικά </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Coca-Cola%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Coca-Cola%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Coca-Cola 330 ml </span>
           </div>
           <span class="price"> 1,90 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Coca-Cola%20Zero%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Coca-Cola%20Zero%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Coca-Cola Zero 330 ml </span>
           </div>
           <span class="price"> 1,90 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Coca-Cola%20Light%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Coca-Cola%20Light%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Coca-Cola Light 330 ml </span>
           </div>
           <span class="price"> 1,90 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Coca-Cola%20Zero%20Caffeine%20Free%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Coca-Cola%20Zero%20Caffeine%20Free%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Coca-Cola Zero Caffeine Free 330 ml </span>
           </div>
           <span class="price"> 2,20 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Sprite%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Sprite%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Sprite 330 ml </span>
           </div>
           <span class="price"> 1,90 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Fanta%20%CE%9A%CF%8C%CE%BA%CE%BA%CE%B9%CE%BD%CE%B7%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Fanta%20%CE%9A%CF%8C%CE%BA%CE%BA%CE%B9%CE%BD%CE%B7%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Fanta Κόκκινη 330 ml </span>
           </div>
           <span class="price"> 1,90 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Fanta%20%CE%9C%CF%80%CE%BB%CE%B5%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Fanta%20%CE%9C%CF%80%CE%BB%CE%B5%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Fanta Μπλε 330 ml </span>
           </div>
           <span class="price"> 1,90 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Fanta%20%CE%9B%CE%B5%CE%BC%CF%8C%CE%BD%CE%B9%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Fanta%20%CE%9B%CE%B5%CE%BC%CF%8C%CE%BD%CE%B9%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Fanta Λεμόνι 330 ml </span>
           </div>
           <span class="price"> 1,90 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Schweppes%20Soda%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Schweppes%20Soda%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Schweppes Soda 330 ml </span>
           </div>
           <span class="price"> 1,90 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Schweppes%20%CE%A0%CE%BF%CF%81%CF%84%CE%BF%CE%BA%CE%AC%CE%BB%CE%B9%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Schweppes%20%CE%A0%CE%BF%CF%81%CF%84%CE%BF%CE%BA%CE%AC%CE%BB%CE%B9%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Schweppes Πορτοκάλι 330 ml </span>
           </div>
           <span class="price"> 1,90 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Schweppes%20%CE%A3%CF%8C%CE%B4%CE%B1%20%CE%9B%CE%B5%CE%BC%CF%8C%CE%BD%CE%B9%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Schweppes%20%CE%A3%CF%8C%CE%B4%CE%B1%20%CE%9B%CE%B5%CE%BC%CF%8C%CE%BD%CE%B9%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Schweppes Σόδα Λεμόνι Χωρίς Ζάχαρη 330 ml </span>
           </div>
           <span class="price"> 1,90 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Schweppes%20%CE%A0%CE%B5%CF%81%CE%B3%CE%B1%CE%BC%CF%8C%CE%BD%CF%84%CE%BF%20%CE%99%CE%B2%CE%AF%CF%83%CE%BA%CE%BF%CF%82%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Schweppes%20%CE%A0%CE%B5%CF%81%CE%B3%CE%B1%CE%BC%CF%8C%CE%BD%CF%84%CE%BF%20%CE%99%CE%B2%CE%AF%CF%83%CE%BA%CE%BF%CF%82%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
             <div class="item-name">Schweppes Λεμονάδα με Περγαμόντο και Ιβίσκο 330 ml</div>
             <span class="price">1,90 €</span>
           </div>
 
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Schweppes%20Mojito%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Schweppes%20Mojito%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-title">
           <div class="item-name">
           <span style="font-size:24px;"> Schweppes Mojito 330 ml </span>
@@ -1638,42 +1662,42 @@ margin-bottom:15px;
           <span class="price"> 1,90 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/FuzeTea%20%CE%9B%CE%B5%CE%BC%CF%8C%CE%BD%CE%B9%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/FuzeTea%20%CE%9B%CE%B5%CE%BC%CF%8C%CE%BD%CE%B9%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> FuzeTea Black Ice Tea Λεμόνι με εκχύλισμα Λουίζας 330 ml </span>
           </div>
           <span class="price"> 2,50 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/FuzeTea%20%CE%A1%CE%BF%CE%B4%CE%AC%CE%BA%CE%B9%CE%BD%CE%BF%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/FuzeTea%20%CE%A1%CE%BF%CE%B4%CE%AC%CE%BA%CE%B9%CE%BD%CE%BF%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> FuzeTea Black Ice Tea Ροδάκινο με εκχύλισμα Ιβίσκου 330 ml </span>
           </div>
           <span class="price"> 2,50 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Coca-Cola%20500ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Coca-Cola%20500ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Coca-Cola 500 ml </span>
           </div>
           <span class="price"> 2,30 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Coca-Cola%20Zero%20500ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Coca-Cola%20Zero%20500ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Coca-Cola Zero 500 ml </span>
           </div>
           <span class="price"> 2,30 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Coca-Cola%201.5L.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Coca-Cola%201.5L.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Coca-Cola 1.5 l </span>
           </div>
           <span class="price"> 3,20 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Coca-Cola%20Zero%201.5L.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Coca-Cola%20Zero%201.5L.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Coca-Cola Zero 1.5 l </span>
           </div>
@@ -1681,7 +1705,7 @@ margin-bottom:15px;
           </div>
           <div class="subcategory"> Ενεργειακά Ποτά </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Hell%20Classic%20250ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Hell%20Classic%20250ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-title">
           <div class="item-name">
           <span style="font-size:24px;"> Hell Classic 250 ml </span>
@@ -1695,21 +1719,21 @@ margin-bottom:15px;
           
           <div class="subcategory"> Χυμοί </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Amita%20Motion%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Amita%20Motion%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Amita Motion 330 ml </span>
           </div>
           <span class="price"> 2,30 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Amita%20Fun%20%CE%9A%CF%8C%CE%BA%CE%BA%CE%B9%CE%BD%CE%B7%20250ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Amita%20Fun%20%CE%9A%CF%8C%CE%BA%CE%BA%CE%B9%CE%BD%CE%B7%20250ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Amita Fun Κόκκινη 250 ml </span>
           </div>
           <span class="price"> 1,60 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Amita%20Fun%20%CE%9C%CF%80%CE%BB%CE%B5%20250ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Amita%20Fun%20%CE%9C%CF%80%CE%BB%CE%B5%20250ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Amita Fun Μπλε 250 ml </span>
           </div>
@@ -1717,14 +1741,14 @@ margin-bottom:15px;
           </div>
           <div class="subcategory"> Νερά </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/%CE%91%CF%8D%CF%81%CE%B1%20500ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/%CE%91%CF%8D%CF%81%CE%B1%20500ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Νερό Αύρα 0.5 l </span>
           </div>
           <span class="price"> 0,50 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/%CE%91%CF%8D%CF%81%CE%B1%201.5L.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/%CE%91%CF%8D%CF%81%CE%B1%201.5L.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Νερό Αύρα 1.5 l </span>
           </div>
@@ -1732,42 +1756,42 @@ margin-bottom:15px;
           </div>
           <div class="subcategory"> Ποτά </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/%CE%86%CE%BB%CF%86%CE%B1%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/%CE%86%CE%BB%CF%86%CE%B1%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Άλφα 330 ml </span>
           </div>
           <span class="price"> 2,30 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/%CE%86%CE%BB%CF%86%CE%B1%20Free%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/%CE%86%CE%BB%CF%86%CE%B1%20Free%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Άλφα Free 330 ml </span>
           </div>
           <span class="price"> 2,30 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Amstel%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Amstel%20330ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Amstel 330 ml </span>
           </div>
           <span class="price"> 2,30 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Oval%20%CE%95%CF%81%CF%85%CE%B8%CF%81%CF%8C%CF%82%20187ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Oval%20%CE%95%CF%81%CF%85%CE%B8%CF%81%CF%8C%CF%82%20187ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Οίνος Ερυθρός Ξηρός Oval 187 ml </span>
           </div>
           <span class="price"> 3,90 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Oval%20%CE%9B%CE%B5%CF%85%CE%BA%CF%8C%CF%82%20187ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Oval%20%CE%9B%CE%B5%CF%85%CE%BA%CF%8C%CF%82%20187ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Οίνος Λευκός Ξηρός Oval 187 ml </span>
           </div>
           <span class="price"> 3,90 € </span>
           </div>
           <div class="item item-with-photo">
-            <img class="item-photo drink-photo" src="images/Drinks/Oval%20%CE%A1%CE%BF%CE%B6%CE%AD%20187ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async">
+            <button type="button" class="item-photo drink-photo photo-preview" aria-label="Μεγέθυνση φωτογραφίας / Zoom photo" aria-haspopup="dialog"><img src="images/Drinks/Oval%20%CE%A1%CE%BF%CE%B6%CE%AD%20187ml.jpg" alt="" width="320" height="320" loading="lazy" decoding="async"><span aria-hidden="true">⤢</span></button>
           <div class="item-name">
           <span style="font-size:24px;"> Οίνος Ροζέ Ημίγλυκος Oval 187 ml </span>
           </div>
@@ -1835,6 +1859,23 @@ margin-bottom:15px;
         : (count ? `Αποτελέσματα: ${count}` : 'Δεν βρέθηκαν προϊόντα. Δοκιμάστε άλλο όνομα ή υλικό.');
       applyMenuLanguage();
     }
+    const photoDialog = document.getElementById('photo-dialog');
+    document.addEventListener('click', function (event) {
+      const trigger = event.target.closest('.photo-preview');
+      if (!trigger) return;
+      const thumbnail = trigger.querySelector('img');
+      const name = trigger.closest('.item').querySelector('.item-name').textContent.trim();
+      photoDialog.style.width = 'min(' + Math.min(thumbnail.naturalWidth || 640, 640) + 'px, calc(100vw - 32px))';
+      photoDialog.querySelector('img').src = thumbnail.src;
+      photoDialog.querySelector('img').alt = name;
+      document.getElementById('photo-dialog-title').textContent = name;
+      photoDialog.showModal();
+    });
+    photoDialog.querySelector('button').addEventListener('click', () => photoDialog.close());
+    photoDialog.addEventListener('click', function (event) {
+      const bounds = photoDialog.getBoundingClientRect();
+      if (event.target === photoDialog && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) photoDialog.close();
+    });
     // Η πρώτη κατηγορία που εμφανίζεται όταν ανοίγει η σελίδα είναι τα Bao Buns.
     window.onload = function () {
       const baoBtn = document.getElementById('btn-bao');
